@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vaishnavi Adhikari — The Celestial Strategist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Ma+Shan+Zheng&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.1/tailwind.min.js"></script>
+
+<style>
+  :root {
+    color-scheme: dark;
+    --void: #050814;
+    --navy: #0B132B;
+    --navy-2: #101B3A;
+    --crimson: #C23B4B;
+    --crimson-deep: #7A1F2B;
+    --gold: #C9A24B;
+    --gold-bright: #F0D28A;
+    --jade: #2F6E5B;
+    --jade-bright: #57B79A;
+    --paper: #F3E8D8;
+    --mist: #AFC0D9;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+  body {
+    background-color: var(--void);
+    font-family: "Cormorant Garamond", serif;
+    color: #E4E9F4;
+    overflow-x: hidden;
+    position: relative;
+    font-size: 1.05rem;
+  }
+
+  h1, h2, h3, .f-head { font-family: "Cinzel", serif; }
+  .f-display { font-family: "Cinzel Decorative", "Cinzel", serif; }
+  .f-brush { font-family: "Ma Shan Zheng", cursive; }
+  .f-ui { font-family: "Jost", sans-serif; }
+  .f-body { font-family: "Cormorant Garamond", serif; }
+
+  ::selection { background: rgba(194, 59, 75, 0.35); color: #FBEFE2; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--void); }
+  ::-webkit-scrollbar-thumb { background: var(--navy-2); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--gold-bright); outline-offset: 3px;
+  }
+
+  /* ================= AMBIENT BACKDROP ================= */
+
+  .cosmos-backdrop {
+    position: fixed; inset: 0; z-index: -6;
+    background:
+      radial-gradient(ellipse 65% 40% at 12% -5%, rgba(87, 183, 154, 0.10), transparent 55%),
+      radial-gradient(ellipse 55% 50% at 100% 6%, rgba(194, 59, 75, 0.14), transparent 55%),
+      radial-gradient(ellipse 75% 55% at 50% 108%, rgba(11, 19, 43, 0.95), transparent 60%),
+      linear-gradient(180deg, #050814 0%, #0B132B 45%, #060A18 100%);
+  }
+
+  .silk-layer { position: fixed; inset: -10%; z-index: -5; pointer-events: none; filter: blur(60px); opacity: 0.55; }
+  .silk-blob {
+    position: absolute; border-radius: 50%; opacity: 0.5;
+    animation: silkDrift 26s ease-in-out infinite;
+  }
+  @keyframes silkDrift {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(4%, -3%) scale(1.08); }
+    66% { transform: translate(-3%, 4%) scale(0.95); }
+  }
+
+  .stars-layer, .drift-layer { position: fixed; inset: 0; z-index: -4; pointer-events: none; overflow: hidden; }
+
+  .star {
+    position: absolute; border-radius: 50%; background: #F3E8D8;
+    box-shadow: 0 0 6px 1px rgba(240, 210, 138, 0.5);
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.75); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .lantern-drift {
+    position: absolute; bottom: -80px; pointer-events: none;
+    animation-name: rise; animation-timing-function: ease-in; animation-iteration-count: infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) translateX(0) rotate(-2deg); opacity: 0; }
+    8% { opacity: 0.9; }
+    50% { transform: translateY(-52vh) translateX(18px) rotate(2deg); }
+    92% { opacity: 0.7; }
+    100% { transform: translateY(-108vh) translateX(-10px) rotate(-2deg); opacity: 0; }
+  }
+
+  .grain-overlay {
+    position: fixed; inset: -100px; z-index: -1; pointer-events: none;
+    opacity: 0.04; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grainShift 1.4s steps(3) infinite;
+  }
+  @keyframes grainShift {
+    0% { transform: translate(0,0); } 33% { transform: translate(-3%,2%); }
+    66% { transform: translate(2%,-3%); } 100% { transform: translate(0,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star, .lantern-drift, .grain-overlay, .reveal, .silk-blob, .guide-float, .ember, .fatestring-path { animation: none !important; transition: none !important; }
+  }
+
+  /* ================= NAV ================= */
+
+  .glass-nav {
+    background: rgba(5, 8, 20, 0.6);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid rgba(201, 162, 75, 0.14);
+  }
+  .nav-link { position: relative; color: #C4D0E6; transition: color 0.3s ease; }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--jade-bright), var(--gold-bright));
+    border-radius: 2px; transition: width 0.35s ease;
+  }
+  .nav-link:hover { color: #FBEFE2; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ================= FATE STRINGS ================= */
+
+  .fatestring-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawString 2.4s ease-out forwards; }
+  @keyframes drawString { to { stroke-dashoffset: 0; } }
+
+  /* ================= WAX-SEAL & SCROLL BUTTONS ================= */
+
+  .btn-seal {
+    position: relative; display: inline-flex; align-items: center; gap: 0.65rem;
+    padding: 1rem 2.3rem; font-family: "Jost", sans-serif; font-weight: 500; font-size: 0.95rem; letter-spacing: 0.03em;
+    color: #2A0A10; background: linear-gradient(135deg, var(--gold-bright), var(--gold) 45%, var(--crimson));
+    border-radius: 999px 999px 999px 4px; cursor: pointer; border: none;
+    box-shadow: 0 0 0 rgba(194,59,75,0);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+  }
+  .btn-seal:hover { box-shadow: 0 0 32px rgba(194, 59, 75, 0.5); transform: translateY(-2px); }
+  .btn-seal .ember-burst { position: absolute; inset: 0; pointer-events: none; }
+  .ember { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: var(--gold-bright); opacity: 0; }
+  .btn-seal:hover .ember { animation: emberPop 0.9s ease-out forwards; }
+  @keyframes emberPop { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--ex), var(--ey)) scale(0.3); } }
+
+  .btn-ink {
+    position: relative; display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.95rem 2.1rem; font-family: "Jost", sans-serif; font-size: 0.95rem; color: #E4E9F4;
+    border: 1px solid rgba(201, 162, 75, 0.5); border-radius: 999px 999px 4px 999px; background: transparent; cursor: pointer;
+    transition: border-color 0.3s ease, background 0.3s ease, letter-spacing 0.3s ease;
+  }
+  .btn-ink:hover { border-color: var(--gold-bright); background: rgba(201, 162, 75, 0.08); letter-spacing: 0.04em; }
+
+  .btn-scroll {
+    position: relative; display: block; width: 100%; text-align: left; cursor: pointer;
+    background: linear-gradient(160deg, rgba(16,27,58,0.9), rgba(5,8,20,0.9));
+    border: 1px solid rgba(87, 183, 154, 0.28);
+    border-radius: 8px; padding: 1.6rem 1.8rem; color: #E4E9F4;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+  }
+  .btn-scroll:hover { border-color: rgba(240, 210, 138, 0.5); box-shadow: 0 18px 45px -18px rgba(0,0,0,0.6); transform: translateY(-3px); }
+
+  /* ================= REVEAL ================= */
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ================= HERO ================= */
+
+  .hero-title { line-height: 1.04; text-shadow: 0 0 46px rgba(87, 183, 154, 0.25); }
+  .wing-glow { filter: drop-shadow(0 0 22px rgba(194,59,75,0.4)); }
+  .wing-left { animation: unfurlLeft 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; transform-origin: right center; }
+  .wing-right { animation: unfurlRight 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; transform-origin: left center; }
+  @keyframes unfurlLeft { 0% { transform: scaleX(0) rotate(-8deg); opacity:0; } 100% { transform: scaleX(1) rotate(0deg); opacity:1; } }
+  @keyframes unfurlRight { 0% { transform: scaleX(0) rotate(8deg); opacity:0; } 100% { transform: scaleX(1) rotate(0deg); opacity:1; } }
+
+  /* ================= PARCHMENT SCROLLS (replaces stat bars) ================= */
+
+  details.parchment {
+    background: linear-gradient(180deg, rgba(16,27,58,0.75), rgba(5,8,20,0.65));
+    border: 1px solid rgba(201, 162, 75, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.4s ease;
+  }
+  details.parchment[open] { border-color: rgba(240, 210, 138, 0.45); }
+  details.parchment summary {
+    list-style: none; cursor: pointer; padding: 1.6rem 1.8rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  }
+  details.parchment summary::-webkit-details-marker { display: none; }
+  details.parchment summary .chev { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); color: var(--gold-bright); }
+  details.parchment[open] summary .chev { transform: rotate(180deg); }
+  .parchment-body {
+    padding: 0 1.8rem 1.8rem 1.8rem; color: var(--mist); font-size: 1.15rem; line-height: 1.6;
+    animation: unroll 0.5s ease;
+  }
+  @keyframes unroll { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ================= SCROLL VAULT CARDS (open modal) ================= */
+
+  .scroll-card {
+    position: relative; border-radius: 8px; cursor: pointer; text-align: left; width: 100%; color: inherit; background: none; border: none; padding: 0;
+    background: linear-gradient(165deg, rgba(16,27,58,0.9), rgba(5,8,20,0.9));
+    border: 1px solid rgba(201, 162, 75, 0.18);
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), border-color 0.5s ease, box-shadow 0.5s ease;
+    overflow: hidden; padding: 2.2rem;
+  }
+  .scroll-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 25% 0%, var(--glow-color, rgba(87,183,154,0.28)), transparent 62%);
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .scroll-card:hover, .scroll-card:focus-visible { transform: translateY(-10px) rotate(-0.3deg); border-color: rgba(240,210,138,0.4); box-shadow: 0 26px 60px -18px rgba(0,0,0,0.65); }
+  .scroll-card:hover::before { opacity: 1; }
+  .scroll-card > * { position: relative; z-index: 1; }
+
+  /* ================= MODAL (ink-fade) ================= */
+
+  #modalOverlay {
+    position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+    padding: 1.25rem;
+    background: radial-gradient(circle at 50% 50%, rgba(5,8,20,0.75), rgba(5,8,20,0.94));
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+  }
+  #modalOverlay.open { opacity: 1; pointer-events: auto; }
+  #modalPanel {
+    max-width: 560px; width: 100%; max-height: 85vh; overflow-y: auto;
+    background: linear-gradient(180deg, rgba(16,27,58,0.96), rgba(5,8,20,0.97));
+    border: 1px solid rgba(240,210,138,0.35); border-radius: 14px; padding: 2.6rem;
+    transform: scale(0.92); opacity: 0; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease;
+    box-shadow: 0 40px 90px -20px rgba(0,0,0,0.7);
+  }
+  #modalOverlay.open #modalPanel { transform: scale(1); opacity: 1; }
+  #modalClose { position: absolute; top: 1.1rem; right: 1.2rem; color: var(--mist); font-size: 1.3rem; cursor: pointer; background: none; border: none; }
+  #modalClose:hover { color: var(--gold-bright); }
+
+  /* ================= SECRET SCRIPT CHAMBER ================= */
+
+  #secretSeal {
+    position: fixed; left: 18px; bottom: 18px; z-index: 55;
+    width: 58px; height: 58px; border-radius: 50%; cursor: pointer;
+    background: radial-gradient(circle, rgba(194,59,75,0.35), rgba(194,59,75,0.08));
+    border: 1px solid rgba(240,210,138,0.4);
+    display: flex; align-items: center; justify-content: center;
+    animation: sealPulse 3.2s ease-in-out infinite;
+  }
+  @keyframes sealPulse { 0%,100% { box-shadow: 0 0 0px rgba(194,59,75,0.4); } 50% { box-shadow: 0 0 22px rgba(194,59,75,0.55); } }
+  #secretSeal i { color: var(--gold-bright); font-size: 1.2rem; }
+
+  #chamberOverlay {
+    position: fixed; inset: 0; z-index: 101; display: flex; align-items: center; justify-content: center;
+    padding: 1.25rem; background: rgba(5,8,20,0.92);
+    opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+  }
+  #chamberOverlay.open { opacity: 1; pointer-events: auto; }
+  #chamberScroll {
+    max-width: 460px; width: 100%; transform-origin: top center; transform: scaleY(0.05);
+    background: linear-gradient(180deg, rgba(243,232,216,0.06), rgba(16,27,58,0.9));
+    border: 1px solid rgba(240,210,138,0.4); border-radius: 10px; padding: 2.4rem 2rem;
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+  }
+  #chamberOverlay.open #chamberScroll { transform: scaleY(1); }
+  #chamberClose { position: absolute; top: 1rem; right: 1.1rem; color: var(--mist); background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+  #chamberClose:hover { color: var(--gold-bright); }
+
+  @media (max-width: 640px) {
+    #secretSeal { width: 48px; height: 48px; left: 12px; bottom: 12px; }
+  }
+
+  /* ================= CONTACT ================= */
+
+  .transmission-deck { background: linear-gradient(180deg, rgba(16,27,58,0.88), rgba(5,8,20,0.92)); border: 1px solid rgba(87,183,154,0.28); }
+  .field-input { background: rgba(5,8,20,0.6); border: 1px solid rgba(175,192,217,0.28); font-family: "Cormorant Garamond", serif; font-size: 1.1rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .field-input:focus { outline: none; border-color: var(--gold-bright); box-shadow: 0 0 0 3px rgba(240,210,138,0.15); }
+  label.field-label { font-family: "Jost", sans-serif; }
+
+  /* ================= COMPANION GUIDE — large, always legible ================= */
+
+  #guideWrap {
+    position: fixed; z-index: 60;
+    right: 20px; bottom: 20px;
+    display: flex; align-items: flex-end; gap: 14px;
+    max-width: min(92vw, 460px);
+  }
+  .guide-bubble {
+    background: linear-gradient(180deg, rgba(16,27,58,0.95), rgba(5,8,20,0.95));
+    border: 1px solid rgba(240,210,138,0.4); color: #F3E8D8;
+    font-family: "Cormorant Garamond", serif; font-size: 1.15rem; font-style: italic; line-height: 1.45;
+    padding: 16px 20px; border-radius: 16px 16px 4px 16px; backdrop-filter: blur(8px);
+    box-shadow: 0 14px 40px -12px rgba(0,0,0,0.7);
+    opacity: 0; transform: translateY(10px) scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease;
+    max-width: 320px;
+  }
+  .guide-bubble.show { opacity: 1; transform: translateY(0) scale(1); }
+  .guide-avatar-wrap { position: relative; flex-shrink: 0; }
+  .guide-avatar { width: 92px; height: 92px; cursor: pointer; display: block; }
+  .guide-float { animation: guideFloat 4.2s ease-in-out infinite; }
+  @keyframes guideFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .guide-name-tag {
+    position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%);
+    font-family: "Jost", sans-serif; font-size: 0.62rem; letter-spacing: 0.12em; color: var(--gold-bright);
+    background: rgba(5,8,20,0.85); padding: 2px 8px; border-radius: 999px; border: 1px solid rgba(240,210,138,0.3);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    #guideWrap { right: 10px; bottom: 10px; gap: 10px; }
+    .guide-bubble { font-size: 1rem; padding: 13px 16px; max-width: 200px; }
+    .guide-avatar { width: 66px; height: 66px; }
+  }
+
+  /* ================= FOOTER ================= */
+
+  .footer-sky {
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, rgba(5,8,20,0) 0%, rgba(6,10,22,0.9) 30%, #050814 100%);
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<div class="cosmos-backdrop"></div>
+<div class="silk-layer">
+  <div class="silk-blob" style="width:38vw;height:38vw;left:-8%;top:5%;background:radial-gradient(circle, rgba(87,183,154,0.35), transparent 70%);"></div>
+  <div class="silk-blob" style="width:32vw;height:32vw;right:-6%;top:20%;background:radial-gradient(circle, rgba(194,59,75,0.3), transparent 70%);animation-delay:6s;"></div>
+  <div class="silk-blob" style="width:34vw;height:34vw;left:20%;bottom:-10%;background:radial-gradient(circle, rgba(201,162,75,0.22), transparent 70%);animation-delay:12s;"></div>
+</div>
+<div class="stars-layer" id="starsLayer"></div>
+<div class="drift-layer" id="driftLayer"></div>
+<div class="grain-overlay"></div>
+
+<!-- ================= NAVBAR ================= -->
+<header class="fixed top-0 inset-x-0 z-50 glass-nav">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <a href="#top" class="f-head text-lg sm:text-xl flex items-center gap-2" style="letter-spacing:0.25em;color:var(--gold-bright);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#57B79A"/><rect x="10.5" y="15" width="3" height="6" rx="1" fill="#C9A24B"/></svg>
+      V.A.
+    </a>
+
+    <div class="hidden md:flex items-center gap-10 text-sm f-ui">
+      <a href="#codex" class="nav-link">The Codex</a>
+      <a href="#vault" class="nav-link">The Scroll Vault</a>
+      <a href="#signal" class="nav-link">Signal Center</a>
+    </div>
+
+    <a href="#signal" class="hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full f-ui transition-colors"
+       style="border:1px solid rgba(201,162,75,0.5); color:var(--gold-bright);">
+      <i class="fa-solid fa-fire"></i> Open a Channel
+    </a>
+
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="md:hidden text-2xl" style="color:var(--gold-bright);">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="md:hidden hidden flex-col gap-1 px-5 pb-6 text-base f-ui">
+    <a href="#codex" class="block py-3 border-b border-white/5" style="color:var(--mist);">The Codex</a>
+    <a href="#vault" class="block py-3 border-b border-white/5" style="color:var(--mist);">The Scroll Vault</a>
+    <a href="#signal" class="block py-3" style="color:var(--mist);">Signal Center</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="top" data-guide="Welcome, traveler — I am the voice of this little cosmos. Stay close, the story only gets better." class="relative min-h-screen flex items-center pt-28 pb-24 px-5 sm:px-8 overflow-hidden">
+
+  <svg class="absolute left-4 bottom-6 sm:left-10 sm:bottom-10 w-24 sm:w-36 opacity-80 pointer-events-none" viewBox="0 0 100 60" fill="none">
+    <ellipse cx="50" cy="52" rx="46" ry="6" fill="#0B132B" opacity="0.6"/>
+    <g transform="translate(50,38)">
+      <path d="M0,0 C-14,-4 -14,-18 0,-22 C14,-18 14,-4 0,0Z" fill="#C23B4B" opacity="0.9"/>
+      <path d="M0,0 C-8,-2 -8,-12 0,-15 C8,-12 8,-2 0,0Z" fill="#F0D28A" opacity="0.9"/>
+      <ellipse cx="0" cy="4" rx="20" ry="5" fill="#2F6E5B" opacity="0.7"/>
+    </g>
+  </svg>
+
+  <div class="absolute inset-0 items-center justify-center pointer-events-none hidden lg:flex">
+    <svg class="wing-left wing-glow absolute" style="right: 51%;" width="360" height="340" viewBox="0 0 360 340" fill="none">
+      <path d="M360 40 C260 10 160 60 110 140 C170 120 220 130 250 170 C190 180 160 220 150 270 C210 250 260 260 290 300 C300 220 320 150 360 40Z" fill="url(#gradL)" opacity="0.45"/>
+      <defs><linearGradient id="gradL" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C23B4B"/><stop offset="1" stop-color="#2F6E5B"/></linearGradient></defs>
+    </svg>
+    <svg class="wing-right wing-glow absolute" style="left: 51%;" width="360" height="340" viewBox="0 0 360 340" fill="none">
+      <path d="M0 40 C100 10 200 60 250 140 C190 120 140 130 110 170 C170 180 200 220 210 270 C150 250 100 260 70 300 C60 220 40 150 0 40Z" fill="url(#gradR)" opacity="0.45"/>
+      <defs><linearGradient id="gradR" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#C23B4B"/><stop offset="1" stop-color="#2F6E5B"/></linearGradient></defs>
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto w-full relative z-10 text-center">
+    <div class="reveal" data-reveal>
+      <p class="text-xs sm:text-sm f-ui mb-6" style="letter-spacing:0.42em;color:var(--gold);">A PORTFOLIO IN THE FORM OF A DYNASTY RECORD</p>
+      <p class="f-brush text-4xl sm:text-5xl mb-2" style="color:var(--gold-bright);">星</p>
+
+      <h1 class="hero-title f-display font-bold text-4xl sm:text-6xl md:text-7xl xl:text-8xl text-transparent bg-clip-text"
+          style="background-image:linear-gradient(135deg, var(--gold-bright), var(--paper) 45%, var(--jade-bright)); -webkit-background-clip:text;">
+        VAISHNAVI ADHIKARI
+      </h1>
+      <h2 class="f-head text-lg sm:text-2xl md:text-3xl mt-5" style="letter-spacing:0.3em;color:var(--mist);">
+        THE CELESTIAL STRATEGIST
+      </h2>
+
+      <p class="mt-8 max-w-xl mx-auto text-lg sm:text-xl italic" style="color:#DCE4F4;">
+        Part engineer, part storyteller — I chart orbits and story arcs with the same
+        quiet obsession. If you love clean systems and cinematic light in equal measure,
+        you have found the right pavilion.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href="#vault" class="btn-seal">
+          <i class="fa-solid fa-compass"></i> Explore My Cosmos
+          <span class="ember-burst" aria-hidden="true"></span>
+        </a>
+        <a href="#codex" class="btn-ink">
+          <i class="fa-solid fa-scroll"></i> Read the Codex
+        </a>
+      </div>
+    </div>
+
+    <svg class="mx-auto mt-16 hidden sm:block" width="2" height="90" viewBox="0 0 2 90">
+      <line x1="1" y1="0" x2="1" y2="90" stroke="var(--crimson)" stroke-width="2" class="fatestring-path"/>
+    </svg>
+  </div>
+
+  <a href="#codex" aria-label="Scroll to next section" class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce" style="color:var(--gold-bright);">
+    <i class="fa-solid fa-chevron-down"></i>
+  </a>
+</section>
+
+<div class="flex justify-center py-2 px-4" style="opacity:0.55;">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="var(--gold)" stroke-width="1.4" fill="none"/></svg>
+</div>
+
+<!-- ================= THE CHARACTER CODEX (ABOUT) ================= -->
+<section id="codex" data-guide="This is her Codex — not scores, but the shape of what she carries. Unroll a scroll and see." class="relative py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs f-ui mb-3" style="letter-spacing:0.3em;color:var(--crimson);">CHAPTER ONE</p>
+      <h2 class="f-display text-3xl sm:text-4xl md:text-5xl mb-8" style="color:var(--paper);">The Character Codex</h2>
+      <p class="text-xl sm:text-2xl leading-relaxed" style="color:var(--mist);">
+        Hey there! I am a first-year mechanical engineering student fueled by the intersections of
+        structural design, stellar deep-space mysteries, and digital aesthetics. Operating from
+        Lucknow University, I love combining raw mathematical logic with the fluid pacing of film
+        editing and written words. Welcome to my little corner of the digital cosmos!
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <details class="reveal parchment" data-reveal style="transition-delay:0.05s;">
+        <summary>
+          <span class="flex items-center gap-3">
+            <svg width="26" height="26" viewBox="0 0 24 24"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#57B79A"/><rect x="10.5" y="15" width="3" height="6" rx="1" fill="#C9A24B"/></svg>
+            <span class="f-head text-sm" style="letter-spacing:0.15em;color:var(--paper);">THE GRAMMAR OF ORBITS</span>
+          </span>
+          <i class="fa-solid fa-chevron-down chev"></i>
+        </summary>
+        <div class="parchment-body">
+          Fascinated by orbital mechanics, mission logic, and the hardware that lets us reach
+          past the atmosphere. I read spacecraft the way others read maps — every trajectory
+          is a sentence, every burn a comma, and somewhere out there is a full stop worth
+          waiting a lifetime for.
+        </div>
+      </details>
+
+      <details class="reveal parchment" data-reveal style="transition-delay:0.15s;">
+        <summary>
+          <span class="flex items-center gap-3">
+            <svg width="26" height="26" viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="1.5" fill="#F0D28A"/><path d="M17 9l4-2v10l-4-2Z" fill="#C23B4B"/></svg>
+            <span class="f-head text-sm" style="letter-spacing:0.15em;color:var(--paper);">THE ART OF THE CUT</span>
+          </span>
+          <i class="fa-solid fa-chevron-down chev"></i>
+        </summary>
+        <div class="parchment-body">
+          Editing in DaVinci Resolve to shape color, rhythm, and mood the way a script shapes
+          a scene. A cut is a decision about what the audience feels next — I obsess over
+          the half-second before a reveal almost as much as the reveal itself.
+        </div>
+      </details>
+
+      <details class="reveal parchment" data-reveal style="transition-delay:0.25s;">
+        <summary>
+          <span class="flex items-center gap-3">
+            <svg width="26" height="26" viewBox="0 0 24 24"><path d="M4 20c4-10 8-14 16-16-2 8-6 12-16 16Z" fill="#C9A24B"/></svg>
+            <span class="f-head text-sm" style="letter-spacing:0.15em;color:var(--paper);">THE WEIGHT OF WORDS</span>
+          </span>
+          <i class="fa-solid fa-chevron-down chev"></i>
+        </summary>
+        <div class="parchment-body">
+          Poetry and public speaking, because a well-placed word can carry as much force as
+          a well-placed equation. I write to remember, and I speak to test whether what I
+          remembered was ever true.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<div class="flex justify-center py-2 px-4" style="opacity:0.55;">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="var(--gold)" stroke-width="1.4" fill="none"/></svg>
+</div>
+
+<!-- ================= THE SCROLL VAULT ================= -->
+<section id="vault" data-guide="Three domains, three scrolls. Touch one and she will unfold the whole of it for you." class="relative py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs f-ui mb-3" style="letter-spacing:0.3em;color:var(--crimson);">CHAPTER TWO</p>
+      <h2 class="f-display text-3xl sm:text-4xl md:text-5xl mb-6" style="color:var(--paper);">The Scroll Vault</h2>
+      <p class="text-xl sm:text-2xl leading-relaxed" style="color:var(--mist);">
+        Three domains, unrolled like imperial scrolls. Click one open — each holds a different
+        half of how I think.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <button class="reveal scroll-card" data-reveal style="--glow-color: rgba(87,183,154,0.32); transition-delay:0.05s;"
+              data-modal-title="Cosmos Blueprinting" data-modal-icon="fa-solid fa-satellite"
+              data-modal-body="Where circuits meet celestial mechanics. I sketch automated hardware logic the same way I trace planetary orbits — patiently, and with the conviction that every system, however vast, obeys a rule worth finding. This is the workbench where a gear and a galaxy are studied with the same reverence.">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="border:1px solid rgba(87,183,154,0.5);">
+          <i class="fa-solid fa-satellite" style="color:var(--jade-bright);"></i>
+        </div>
+        <h3 class="f-head text-xl mb-4" style="color:var(--paper);">Hardware &amp; Cosmos</h3>
+        <p class="text-lg leading-relaxed" style="color:var(--mist);">Automated systems, orbital logic, and the quiet architecture behind both.</p>
+        <p class="mt-4 text-sm f-ui" style="color:var(--gold-bright);">Open the scroll <i class="fa-solid fa-arrow-right ml-1"></i></p>
+      </button>
+
+      <button class="reveal scroll-card" data-reveal style="--glow-color: rgba(194,59,75,0.32); transition-delay:0.15s;"
+              data-modal-title="Cinematic Frame-Cutting" data-modal-icon="fa-solid fa-clapperboard"
+              data-modal-body="Costume dramas taught me that a single frame can hold a whole dynasty's worth of longing. In DaVinci Resolve, I chase that same weight — grading color like ink on silk, cutting for breath and pause, building a scene's emotional architecture one timeline at a time.">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="border:1px solid rgba(194,59,75,0.5);">
+          <i class="fa-solid fa-clapperboard" style="color:var(--crimson);"></i>
+        </div>
+        <h3 class="f-head text-xl mb-4" style="color:var(--paper);">Film &amp; Frame</h3>
+        <p class="text-lg leading-relaxed" style="color:var(--mist);">Color grading, pacing, and the craft of making a cut feel inevitable.</p>
+        <p class="mt-4 text-sm f-ui" style="color:var(--gold-bright);">Open the scroll <i class="fa-solid fa-arrow-right ml-1"></i></p>
+      </button>
+
+      <button class="reveal scroll-card" data-reveal style="--glow-color: rgba(201,162,75,0.32); transition-delay:0.25s;"
+              data-modal-title="Literary Scripts" data-modal-icon="fa-solid fa-scroll"
+              data-modal-body="Poetry drafted in the margins of lecture notes, speeches rehearsed to an empty room — this is where I practice saying things so they land. Every strategist needs a voice, and mine was built one verse, one podium, at a time.">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="border:1px solid rgba(201,162,75,0.6);">
+          <i class="fa-solid fa-scroll" style="color:var(--gold-bright);"></i>
+        </div>
+        <h3 class="f-head text-xl mb-4" style="color:var(--paper);">Script &amp; Stage</h3>
+        <p class="text-lg leading-relaxed" style="color:var(--mist);">Poetry, rhetoric, and the discipline of a voice rehearsed until it's true.</p>
+        <p class="mt-4 text-sm f-ui" style="color:var(--gold-bright);">Open the scroll <i class="fa-solid fa-arrow-right ml-1"></i></p>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<div class="flex justify-center py-2 px-4" style="opacity:0.55;">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="var(--gold)" stroke-width="1.4" fill="none"/></svg>
+</div>
+
+<!-- ================= SIGNAL TRANSMISSION CENTER (CONTACT) ================= -->
+<section id="signal" data-guide="Almost the final page. Send a lantern into the sky, and she'll write back." class="relative py-24 px-5 sm:px-8 overflow-hidden">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="reveal text-center mb-14" data-reveal>
+      <p class="text-xs f-ui mb-3" style="letter-spacing:0.3em;color:var(--crimson);">CHAPTER THREE</p>
+      <h2 class="f-display text-3xl sm:text-4xl md:text-5xl mb-6" style="color:var(--paper);">Signal Transmission Center</h2>
+      <p class="text-xl sm:text-2xl leading-relaxed" style="color:var(--mist);">
+        Send a message across the void — I read every transmission that reaches this pavilion,
+        and I answer them all.
+      </p>
+    </div>
+
+    <form class="reveal transmission-deck p-8 sm:p-12 rounded-lg relative" data-reveal id="signalForm">
+      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label for="name" class="field-label block text-xs mb-2" style="letter-spacing:0.15em;color:var(--mist);">YOUR NAME</label>
+          <input id="name" name="name" type="text" required placeholder="Who goes there?"
+                 class="field-input w-full px-4 py-3 text-white rounded-md" />
+        </div>
+        <div>
+          <label for="email" class="field-label block text-xs mb-2" style="letter-spacing:0.15em;color:var(--mist);">YOUR EMAIL</label>
+          <input id="email" name="email" type="email" required placeholder="you@somewhere.cosmos"
+                 class="field-input w-full px-4 py-3 text-white rounded-md" />
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <label for="message" class="field-label block text-xs mb-2" style="letter-spacing:0.15em;color:var(--mist);">YOUR MESSAGE</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell me why you're reaching out..."
+                  class="field-input w-full px-4 py-3 text-white rounded-md resize-none"></textarea>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <p class="text-xs f-ui order-2 sm:order-1" style="color:rgba(175,192,217,0.7);">This opens your email app, addressed and ready to send.</p>
+        <button type="submit" class="btn-seal order-1 sm:order-2 w-full sm:w-auto justify-center">
+          <i class="fa-solid fa-paper-plane"></i> Send Transmission
+          <span class="ember-burst" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+
+    <div class="reveal flex justify-center gap-8 mt-12 text-xl" data-reveal style="color:var(--mist);">
+      <a href="#" aria-label="Instagram" class="transition-colors hover:opacity-80"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn" class="transition-colors hover:opacity-80"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" aria-label="YouTube" class="transition-colors hover:opacity-80"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="GitHub" class="transition-colors hover:opacity-80"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXTENDED DRAMATIC FOOTER ================= -->
+<footer class="footer-sky relative pt-16 pb-12 px-5 sm:px-8">
+  <svg class="mx-auto mb-10" width="260" height="30" viewBox="0 0 260 30" fill="none" style="opacity:0.6;">
+    <path d="M0 20c16-16 30-16 42 0 12-16 28-16 40 0 12-16 28-16 40 0 12-16 28-16 40 0 12-16 30-16 44 0 12-16 28-16 54 0" stroke="var(--gold)" stroke-width="1.4" fill="none"/>
+  </svg>
+
+  <div class="max-w-3xl mx-auto text-center mb-14">
+    <p class="f-brush text-3xl mb-4" style="color:var(--gold-bright);">終章</p>
+    <p class="text-xl sm:text-2xl italic leading-relaxed" style="color:#DCE4F4;">
+      Somewhere over Lucknow, the same sky that carried imperial lanterns now carries
+      satellites. I like to think both are doing the same thing — carrying small, stubborn
+      lights a little further into the dark. This site is one of mine. Thank you for holding it a while.
+    </p>
+  </div>
+
+  <div class="max-w-4xl mx-auto grid sm:grid-cols-3 gap-8 text-center mb-14">
+    <div>
+      <i class="fa-solid fa-envelope mb-2 block text-lg" style="color:var(--jade-bright);"></i>
+      <p class="f-ui text-xs" style="letter-spacing:0.1em;color:var(--mist);">EMAIL</p>
+      <a href="mailto:youremail@example.com" class="text-lg" style="color:var(--paper);">youremail@example.com</a>
+    </div>
+    <div>
+      <i class="fa-solid fa-location-dot mb-2 block text-lg" style="color:var(--crimson);"></i>
+      <p class="f-ui text-xs" style="letter-spacing:0.1em;color:var(--mist);">STATIONED AT</p>
+      <p class="text-lg" style="color:var(--paper);">Lucknow University</p>
+    </div>
+    <div>
+      <i class="fa-solid fa-compass mb-2 block text-lg" style="color:var(--gold-bright);"></i>
+      <p class="f-ui text-xs" style="letter-spacing:0.1em;color:var(--mist);">CURRENTLY CHARTING</p>
+      <p class="text-lg" style="color:var(--paper);">Year One, Mechanical Engineering</p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs f-ui pt-8" style="border-top:1px solid rgba(255,255,255,0.06);color:rgba(175,192,217,0.6);">
+    <p>&copy; 2026 Vaishnavi Adhikari. Charted from Lucknow, under one sky.</p>
+    <p style="letter-spacing:0.25em;">THE CELESTIAL STRATEGIST</p>
+  </div>
+</footer>
+
+<!-- ================= SECRET SCRIPT CHAMBER (easter egg) ================= -->
+<button id="secretSeal" aria-label="Open the Secret Script Chamber" title="A hidden chamber...">
+  <i class="fa-solid fa-seal"></i>
+</button>
+
+<div id="chamberOverlay">
+  <div id="chamberScroll">
+    <button id="chamberClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <p class="f-ui text-xs mb-3" style="letter-spacing:0.2em;color:var(--crimson);">SECRET SCRIPT CHAMBER</p>
+    <h3 id="chamberTitle" class="f-head text-xl mb-4" style="color:var(--paper);"></h3>
+    <p id="chamberBody" class="text-lg leading-relaxed" style="color:var(--mist);"></p>
+  </div>
+</div>
+
+<!-- ================= MODAL ================= -->
+<div id="modalOverlay">
+  <div id="modalPanel" class="relative">
+    <button id="modalClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    <div class="w-12 h-12 rounded-full flex items-center justify-center mb-6" style="border:1px solid rgba(240,210,138,0.5);">
+      <i id="modalIcon" class="text-xl" style="color:var(--gold-bright);"></i>
+    </div>
+    <h3 id="modalTitle" class="f-head text-2xl mb-5" style="color:var(--paper);"></h3>
+    <p id="modalBody" class="text-lg leading-relaxed" style="color:var(--mist);"></p>
+  </div>
+</div>
+
+<!-- ================= COMPANION GUIDE ================= -->
+<div id="guideWrap">
+  <div id="guideBubble" class="guide-bubble"></div>
+  <div class="guide-avatar-wrap">
+    <svg id="guideAvatar" class="guide-avatar guide-float" viewBox="0 0 100 100" role="button" tabindex="0" aria-label="Your guide">
+      <ellipse cx="50" cy="90" rx="30" ry="6" fill="#000" opacity="0.3"/>
+      <path d="M20 92 C15 55 25 33 50 33 C75 33 85 55 80 92Z" fill="#101B3A"/>
+      <path d="M50 33 C40 33 33 44 33 57 C42 53 58 53 67 57 C67 44 60 33 50 33Z" fill="#C23B4B"/>
+      <path d="M27 60c-3 12 1 22 8 26" stroke="#57B79A" stroke-width="2" fill="none" opacity="0.7"/>
+      <circle cx="50" cy="24" r="14" fill="#1D0F22"/>
+      <circle cx="50" cy="24" r="10" fill="#F3E8D8"/>
+      <path d="M40 18c4-6 16-6 20 0" stroke="#1D0F22" stroke-width="2" fill="none"/>
+      <path d="M36 12c8-8 20-8 28 0" stroke="#1D0F22" stroke-width="3" fill="none"/>
+      <circle cx="50" cy="10" r="3" fill="#F0D28A"/>
+    </svg>
+    <span class="guide-name-tag">YOUR GUIDE</span>
+  </div>
+</div>
+
+<script>
+  // ---------- Starfield ----------
+  const starsLayer = document.getElementById('starsLayer');
+  const STAR_COUNT = window.innerWidth < 640 ? 55 : 120;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.6;
+    s.style.width = size + 'px'; s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + '%'; s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (3 + Math.random() * 4) + 's';
+    starsLayer.appendChild(s);
+  }
+
+  // ---------- Drifting lanterns ----------
+  const driftLayer = document.getElementById('driftLayer');
+  const lanternSVG = (w) => `<svg width="${w}" height="${w*1.3}" viewBox="0 0 40 52" fill="none">
+      <ellipse cx="20" cy="8" rx="9" ry="3" fill="#C9A24B"/>
+      <path d="M6 10c0 18 6 28 14 30 8-2 14-12 14-30-4 4-24 4-28 0Z" fill="#C23B4B" opacity="0.9"/>
+      <path d="M6 10c0 18 6 28 14 30 8-2 14-12 14-30" stroke="#F0D28A" stroke-width="0.6" opacity="0.6" fill="none"/>
+      <rect x="18" y="40" width="4" height="8" fill="#8A6B2E"/>
+    </svg>`;
+  const LANTERN_COUNT = window.innerWidth < 640 ? 4 : 7;
+  for (let i = 0; i < LANTERN_COUNT; i++) {
+    const l = document.createElement('div');
+    l.className = 'lantern-drift';
+    const w = 26 + Math.random() * 22;
+    l.style.left = (5 + Math.random() * 90) + '%';
+    l.style.animationDuration = (16 + Math.random() * 10) + 's';
+    l.style.animationDelay = (Math.random() * 14) + 's';
+    l.innerHTML = lanternSVG(w);
+    driftLayer.appendChild(l);
+  }
+
+  // ---------- Mobile menu ----------
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('flex');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuBtn.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex');
+    menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ---------- Reveal on scroll ----------
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ---------- Ember burst on seal buttons ----------
+  document.querySelectorAll('.btn-seal').forEach(btn => {
+    const burst = btn.querySelector('.ember-burst');
+    btn.addEventListener('mouseenter', () => {
+      if (!burst) return;
+      burst.innerHTML = '';
+      for (let i = 0; i < 10; i++) {
+        const e = document.createElement('span');
+        e.className = 'ember';
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 24 + Math.random() * 24;
+        e.style.setProperty('--ex', Math.cos(angle) * dist + 'px');
+        e.style.setProperty('--ey', Math.sin(angle) * dist + 'px');
+        e.style.left = (30 + Math.random() * 40) + '%';
+        e.style.top = '50%';
+        e.style.animationDelay = (Math.random() * 0.15) + 's';
+        burst.appendChild(e);
+      }
+    });
+  });
+
+  // ---------- Only one <details> open at a time within its grid ----------
+  document.querySelectorAll('details.parchment').forEach(d => {
+    d.addEventListener('toggle', () => {
+      if (d.open) {
+        document.querySelectorAll('details.parchment').forEach(other => {
+          if (other !== d) other.open = false;
+        });
+      }
+    });
+  });
+
+  // ---------- Modal (Scroll Vault) ----------
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  const modalIcon = document.getElementById('modalIcon');
+  const modalClose = document.getElementById('modalClose');
+
+  document.querySelectorAll('.scroll-card').forEach(card => {
+    card.addEventListener('click', () => {
+      modalTitle.textContent = card.getAttribute('data-modal-title');
+      modalBody.textContent = card.getAttribute('data-modal-body');
+      modalIcon.className = card.getAttribute('data-modal-icon') + ' text-xl';
+      modalOverlay.classList.add('open');
+    });
+  });
+  function closeModal() { modalOverlay.classList.remove('open'); }
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { closeModal(); closeChamber(); } });
+
+  // ---------- Secret Script Chamber ----------
+  const secretInsights = [
+    {
+      title: "On Color Theory",
+      body: "Warm light (amber, crimson) reads as memory; cool light (jade, indigo) reads as distance. Every frame I grade is really just deciding how close I want the audience to feel to what they're watching."
+    },
+    {
+      title: "On Astronomy",
+      body: "Light from some of the stars overhead tonight left its source before either of us was born. Looking up is, technically, always looking backward — which might be the most honest thing the sky ever does."
+    },
+    {
+      title: "A Small Poem",
+      body: "\u201cI keep a lantern lit for logic,\nand one for longing too —\nboth burn the same amber,\nboth answer to the same wind.\u201d"
+    }
+  ];
+  const secretSeal = document.getElementById('secretSeal');
+  const chamberOverlay = document.getElementById('chamberOverlay');
+  const chamberTitle = document.getElementById('chamberTitle');
+  const chamberBody = document.getElementById('chamberBody');
+  const chamberClose = document.getElementById('chamberClose');
+
+  secretSeal.addEventListener('click', () => {
+    const pick = secretInsights[Math.floor(Math.random() * secretInsights.length)];
+    chamberTitle.textContent = pick.title;
+    chamberBody.textContent = pick.body;
+    chamberOverlay.classList.add('open');
+  });
+  function closeChamber() { chamberOverlay.classList.remove('open'); }
+  chamberClose.addEventListener('click', closeChamber);
+  chamberOverlay.addEventListener('click', (e) => { if (e.target === chamberOverlay) closeChamber(); });
+
+  // ---------- Guide companion ----------
+  const guideBubble = document.getElementById('guideBubble');
+  const guideAvatar = document.getElementById('guideAvatar');
+  const guideSections = document.querySelectorAll('[data-guide]');
+  let guideTimeout;
+
+  function showGuideMessage(text) {
+    guideBubble.textContent = text;
+    guideBubble.classList.add('show');
+    clearTimeout(guideTimeout);
+    guideTimeout = setTimeout(() => guideBubble.classList.remove('show'), 5000);
+  }
+
+  const guideObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) showGuideMessage(entry.target.getAttribute('data-guide'));
+    });
+  }, { threshold: 0.55 });
+  guideSections.forEach(s => guideObserver.observe(s));
+
+  guideAvatar.addEventListener('click', () => {
+    const lines = [
+      "There's a hidden seal in the corner of this page. Strategists always look twice.",
+      "Every scroll here opens into something longer — that's rather the point of scrolls.",
+      "Thank you for staying this long in my little cosmos."
+    ];
+    showGuideMessage(lines[Math.floor(Math.random() * lines.length)]);
+  });
+  guideAvatar.addEventListener('keypress', (e) => { if (e.key === 'Enter') guideAvatar.click(); });
+
+  window.addEventListener('load', () => setTimeout(() => showGuideMessage(document.querySelector('#top').getAttribute('data-guide')), 900));
+
+  // ---------- Contact form -> mailto, with a lantern-release moment ----------
+  const form = document.getElementById('signalForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const subject = encodeURIComponent('A transmission from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+
+    const l = document.createElement('div');
+    l.className = 'lantern-drift';
+    l.style.left = '50%';
+    l.style.animationDuration = '3.4s';
+    l.innerHTML = lanternSVG(46);
+    document.body.appendChild(l);
+    setTimeout(() => l.remove(), 3600);
+
+    setTimeout(() => {
+      window.location.href = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+    }, 400);
+  });
+</script>
+
+</body>
+</html>
