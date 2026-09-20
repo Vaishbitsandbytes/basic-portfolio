@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaishnavi Adhikari — Imperial Heiress of the Digital Dynasty</title>
+  
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS Engine -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            imperial: {
+              deep: '#050814',
+              curtain: '#0b132b',
+              slate: '#1c2541',
+              card: 'rgba(28, 37, 65, 0.75)'
+            },
+            dynasty: {
+              gold: '#f39c12',
+              glow: '#f1c40f',
+              vermilion: '#e74c3c',
+              jade: '#1abc9c',
+              jadeDark: '#0e6251',
+              silk: '#edf2f4'
+            }
+          },
+          fontFamily: {
+            title: ['"Cinzel Decorative"', 'serif'],
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Jost"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Styling for Complex Visual Architecture */
+    body {
+      background-color: #050814;
+      color: #edf2f4;
+      font-family: 'Jost', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background Layering */
+    #background-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Red Strings Layer */
+    .fate-strings-svg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* CSS ART: The Imperial Guide Avatar Component */
+    .heiress-avatar-container {
+      position: relative;
+      width: 110px;
+      height: 140px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      filter: drop-shadow(0 0 12px rgba(26, 188, 156, 0.5));
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .heiress-avatar-container:hover {
+      transform: scale(1.08) translateY(-4px);
+    }
+
+    /* Umbrella (Oiled Paper Parasol) */
+    .parasol {
+      position: absolute;
+      top: 0px;
+      left: 15px;
+      width: 80px;
+      height: 25px;
+      background: radial-gradient(circle at center, #f39c12 20%, #e74c3c 90%);
+      border-radius: 80px 80px 10px 10px;
+      border: 1px solid #f1c40f;
+      z-index: 4;
+      box-shadow: 0 0 15px rgba(243, 156, 18, 0.5);
+    }
+    .parasol-handle {
+      position: absolute;
+      top: 24px;
+      left: 54px;
+      width: 2px;
+      height: 60px;
+      background: #f1c40f;
+      z-index: 3;
+    }
+
+    /* Heiress Silhouette & Flowing Hair */
+    .heiress-head {
+      position: absolute;
+      top: 30px;
+      width: 22px;
+      height: 26px;
+      background: #ffe0bd;
+      border-radius: 50% 50% 40% 40%;
+      z-index: 3;
+      box-shadow: inset -2px 0 4px rgba(0,0,0,0.2);
+    }
+    .heiress-hair {
+      position: absolute;
+      top: 25px;
+      width: 28px;
+      height: 70px;
+      background: #090a0f;
+      border-radius: 14px 14px 4px 4px;
+      z-index: 2;
+    }
+    .heiress-hair-long {
+      position: absolute;
+      top: 45px;
+      width: 34px;
+      height: 60px;
+      background: #090a0f;
+      border-radius: 0 0 15px 15px;
+      z-index: 1;
+      transform: rotate(-3deg);
+      animation: hairSway 4s ease-in-out infinite alternate;
+    }
+
+    /* Hanfu Robes & Jade Sword */
+    .heiress-hanfu {
+      position: absolute;
+      top: 52px;
+      width: 42px;
+      height: 60px;
+      background: linear-gradient(180deg, #1abc9c 0%, #0b132b 90%);
+      border-top: 3px solid #e74c3c;
+      border-radius: 15px 15px 5px 5px;
+      z-index: 3;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+    .jade-sword {
+      position: absolute;
+      top: 40px;
+      right: 12px;
+      width: 4px;
+      height: 70px;
+      background: linear-gradient(180deg, #ffffff 0%, #1abc9c 60%, #0e6251 100%);
+      box-shadow: 0 0 10px #1abc9c;
+      transform: rotate(22deg);
+      z-index: 4;
+      border-radius: 2px;
+    }
+    .sword-hilt {
+      position: absolute;
+      top: 38px;
+      right: 5px;
+      width: 16px;
+      height: 4px;
+      background: #f39c12;
+      transform: rotate(22deg);
+      z-index: 5;
+    }
+
+    @keyframes hairSway {
+      0% { transform: rotate(-3deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* Interactive Doodles */
+    .floating-doodle {
+      position: absolute;
+      cursor: pointer;
+      animation: doodleFloat 3.5s ease-in-out infinite alternate;
+      transition: all 0.3s ease;
+    }
+    .floating-doodle:hover {
+      transform: scale(1.25) rotate(10deg);
+      filter: drop-shadow(0 0 12px #f1c40f);
+    }
+    @keyframes doodleFloat {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    /* Custom Manuscript Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050814;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1abc9c;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f39c12;
+    }
+
+    /* Wax Seal Button Effects */
+    .wax-seal-btn {
+      background: radial-gradient(circle at center, #c0392b 0%, #8e44ad 100%);
+      border: 1px solid #f39c12;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .wax-seal-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+      border-color: #ffffff;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen text-dynasty-silk selection:bg-dynasty-vermilion selection:text-white">
+
+  <!-- Interactive Background Canvas (Lanterns & Stardust) -->
+  <canvas id="background-canvas"></canvas>
+
+  <!-- Red Fate Strings SVG Layer -->
+  <svg class="fate-strings-svg" preserveAspectRatio="none">
+    <path d="M 0,150 Q 400,300 800,100 T 1600,400" stroke="#e74c3c" stroke-width="1.5" fill="none"/>
+    <path d="M 100,0 Q 500,800 1000,200 T 1800,900" stroke="#e74c3c" stroke-width="1" fill="none"/>
+  </svg>
+
+  <!-- Imperial Guide Avatar (Docking Floating Component) -->
+  <aside id="heiress-guide" class="fixed z-50 transition-all duration-700 ease-out bottom-6 right-6 flex flex-row-reverse items-end md:bottom-8 md:right-8">
+    
+    <!-- CSS Art Avatar -->
+    <div class="heiress-avatar-container" id="heiress-avatar" title="Click to summon the Heiress's secret thoughts!">
+      <div class="parasol"></div>
+      <div class="parasol-handle"></div>
+      <div class="heiress-head"></div>
+      <div class="heiress-hair"></div>
+      <div class="heiress-hair-long"></div>
+      <div class="heiress-hanfu"></div>
+      <div class="sword-hilt"></div>
+      <div class="jade-sword"></div>
+    </div>
+
+    <!-- Dialogue Whisper Bubble -->
+    <div class="mr-4 mb-4 max-w-xs md:max-w-sm bg-imperial-curtain/95 border border-dynasty-gold/60 rounded-2xl p-4 shadow-[0_0_25px_rgba(243,156,18,0.25)] backdrop-blur-md">
+      <div class="text-xs font-serif italic text-dynasty-jade mb-1 tracking-widest uppercase">Guide Whispers</div>
+      <p id="guide-dialogue" class="text-sm font-sans text-dynasty-silk leading-relaxed">
+        Greeting, noble traveler! Welcome to my digital dynasty scroll. Let us embark on a whimsical journey! ✨
+      </p>
+    </div>
+  </aside>
+
+  <!-- Main Scroll Container -->
+  <main class="relative z-10 max-w-4xl mx-auto px-6 pt-12 pb-32 flex flex-col items-center">
+
+    <!-- HERO HEADER -->
+    <header class="text-center my-12 w-full">
+      <div class="inline-block px-4 py-1 mb-4 border border-dynasty-jade/40 rounded-full bg-imperial-slate/40 text-dynasty-jade text-xs font-serif tracking-widest uppercase backdrop-blur-sm">
+        Imperial Dynasty Portfolio • Hackathon Edition
+      </div>
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-title font-black text-white tracking-wider text-shadow-lg leading-tight">
+        VAISHNAVI ADHIKARI
+      </h1>
+      <div class="h-0.5 w-32 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent mx-auto my-4"></div>
+      <p class="font-serif text-lg sm:text-2xl text-dynasty-gold italic tracking-wide">
+        Mechanical Tinkerer • Cinematic Storyteller • Visual Alchemist
+      </p>
+    </header>
+
+    <!-- CHAPTER 1: THE ORIGIN -->
+    <section class="w-full my-8 scroll-mt-12 chapter-block" id="chapter1" data-comment="First-year Mechanical Engineering at Lucknow University! Studying thermodynamics by day, editing high-drama cinematic timelines by night. ☕">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent"></div>
+        
+        <!-- Floating Interactive Doodle: Lotus -->
+        <div class="floating-doodle top-6 right-6 text-2xl text-dynasty-jade" onclick="openModal('films')" title="Click Lotus to open Favorite Films Log!">
+          <i class="fa-solid font-bold fa-spa"></i>
+        </div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter I</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-6">The Origin</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg">
+          Welcome to my scroll! I am a <strong>first-year Mechanical Engineering student at Lucknow University</strong>. While my daily schedule is packed with thermodynamic equations, stress analysis, and kinematic linkages, my creative soul thrives at the intersection of raw engineering precision and dramatic visual art. I don't just solve equations—I weave them into stories.
+        </p>
+
+        <button onclick="openModal('origin')" class="wax-seal-btn mt-6 px-6 py-3 rounded-full text-white font-serif font-semibold text-sm tracking-wider flex items-center space-x-2">
+          <span>🌸</span>
+          <span>Unfold Origin Scroll</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="my-8 text-dynasty-gold/60 text-xl">☸</div>
+
+    <!-- CHAPTER 2: THE COSMIC VAULT -->
+    <section class="w-full my-8 scroll-mt-12 chapter-block" id="chapter2" data-comment="Space is vast and magnificent! Staring at star charts reminds me that bugged code lines are tiny compared to orbital mechanics. 🌌">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-jade to-transparent"></div>
+
+        <!-- Floating Interactive Doodle: Fate String Knot -->
+        <div class="floating-doodle top-6 right-6 text-2xl text-dynasty-vermilion" onclick="openModal('astronomy')" title="Click Knot to open Astronomy Texts!">
+          <i class="fa-solid fa-infinity"></i>
+        </div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter II</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-4">The Cosmic Vault</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg mb-6">
+          I harbor a deep, unyielding passion for deep-space astronomy and cosmic exploration. The cosmos represents the ultimate dynasty—endless, dark, and illuminated by ancient glowing stars.
+        </p>
+
+        <!-- Placeholder Grid: Celestial Schematics -->
+        <div class="border border-dashed border-dynasty-gold/40 rounded-xl p-6 bg-imperial-deep/50 text-center">
+          <div class="text-xs font-serif tracking-widest text-dynasty-gold mb-3 uppercase">CELESTIAL SCHEMATICS (PROJECT PLACEHOLDER GRID)</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border border-imperial-slate bg-imperial-curtain/60 p-4 rounded-lg flex items-center space-x-3">
+              <i class="fa-solid fa-shuttle-space text-dynasty-jade text-xl"></i>
+              <div class="text-left">
+                <div class="text-sm font-semibold text-white">Orbital Mechanics Sim</div>
+                <div class="text-xs text-slate-400">Incoming Project Launch</div>
+              </div>
+            </div>
+            <div class="border border-imperial-slate bg-imperial-curtain/60 p-4 rounded-lg flex items-center space-x-3">
+              <i class="fa-solid fa-meteor text-dynasty-gold text-xl"></i>
+              <div class="text-left">
+                <div class="text-sm font-semibold text-white">Deep Sky Telemetry</div>
+                <div class="text-xs text-slate-400">Data Visualization Lab</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="my-8 text-dynasty-gold/60 text-xl">☸</div>
+
+    <!-- CHAPTER 3: THE DIRECTOR'S CUT -->
+    <section class="w-full my-8 scroll-mt-12 chapter-block" id="chapter3" data-comment="Color palettes are my playground! If a video frame doesn't feel like a high-budget fantasy drama, I grade it again. 🎬">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-vermilion to-transparent"></div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter III</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-4">The Director's Cut</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg mb-6">
+          Storytelling is an emotional science. I spend hours dissecting color theory in Canva and sculpting cinematic video tracks inside <strong>DaVinci Resolve</strong>. My goal is simple: transform raw footage into visual poetry.
+        </p>
+
+        <!-- Placeholder Grid: Cinematic Projects -->
+        <div class="border border-dashed border-dynasty-vermilion/40 rounded-xl p-6 bg-imperial-deep/50 text-center">
+          <div class="text-xs font-serif tracking-widest text-dynasty-vermilion mb-3 uppercase">CINEMATIC PROJECTS (VIDEO SHOWCASE GRID)</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border border-imperial-slate bg-imperial-curtain/60 p-4 rounded-lg flex items-center space-x-3">
+              <i class="fa-solid fa-film text-dynasty-vermilion text-xl"></i>
+              <div class="text-left">
+                <div class="text-sm font-semibold text-white">Xianxia Color Study</div>
+                <div class="text-xs text-slate-400">DaVinci Resolve Timeline</div>
+              </div>
+            </div>
+            <div class="border border-imperial-slate bg-imperial-curtain/60 p-4 rounded-lg flex items-center space-x-3">
+              <i class="fa-solid fa-clapperboard text-dynasty-gold text-xl"></i>
+              <div class="text-left">
+                <div class="text-sm font-semibold text-white">Atmospheric Teaser</div>
+                <div class="text-xs text-slate-400">Short Film Edit</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="my-8 text-dynasty-gold/60 text-xl">☸</div>
+
+    <!-- CHAPTER 4: THE QUILL & ANCHOR -->
+    <section class="w-full my-8 scroll-mt-12 chapter-block" id="chapter4" data-comment="Public speaking and hosting gives me an incredible rush! Hand me a mic and I will hold the entire hall captive. 🎤">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent"></div>
+
+        <!-- Floating Interactive Doodle: Dragon Quill -->
+        <div class="floating-doodle top-6 right-6 text-2xl text-dynasty-gold" onclick="openModal('poetry')" title="Click Quill to open Published Poetry Logs!">
+          <i class="fa-solid fa-feather-pointed"></i>
+        </div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter IV</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-6">The Quill & Anchor</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg">
+          Long before writing lines of code, I authored published poetry in school magazines and took to the stage. As an experienced anchor and competitive public speaker, commanding student crowds with humor, poise, and warmth comes naturally to me.
+        </p>
+
+        <button onclick="openModal('quill')" class="wax-seal-btn mt-6 px-6 py-3 rounded-full text-white font-serif font-semibold text-sm tracking-wider flex items-center space-x-2">
+          <span>📜</span>
+          <span>Read Published Verses</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="my-8 text-dynasty-gold/60 text-xl">☸</div>
+
+    <!-- CHAPTER 5: THE CODE PAVILION -->
+    <section class="chapter-block w-full my-8 scroll-mt-12" id="chapter5" data-comment="Code isn't just dry logic to me—it's digital origami! Every function call is a petal moving in the wind. 💻">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-jade to-transparent"></div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter V</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-6">The Code Pavilion</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg">
+          My software journey began with a simple creative question: <em>"Why can't code feel as enchanting as a fantasy film?"</em> Today, I build front-end architectures that unite HTML5 Canvas physics, Tailwinds grids, and smooth DOM animations into fluid interactive art.
+        </p>
+
+        <button onclick="openModal('code')" class="wax-seal-btn mt-6 px-6 py-3 rounded-full text-white font-serif font-semibold text-sm tracking-wider flex items-center space-x-2">
+          <span>⚡</span>
+          <span>Inspect Architecture Spec</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="my-8 text-dynasty-gold/60 text-xl">☸</div>
+
+    <!-- CHAPTER 6: THE SIGNAL TRANSMISSION -->
+    <section class="chapter-block w-full my-8 scroll-mt-12" id="chapter6" data-comment="Ready to collaborate or create something magical together? Dispatch a mail right to my inbox! 💌">
+      <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-8 md:p-10 relative overflow-hidden backdrop-blur-md shadow-2xl text-center">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-vermilion to-transparent"></div>
+
+        <span class="font-serif text-dynasty-jade italic tracking-widest text-sm uppercase block mb-1">Chapter VI</span>
+        <h2 class="font-title text-2xl md:text-3xl text-white mb-4">The Signal Transmission</h2>
+        
+        <p class="text-slate-300 leading-relaxed font-light text-base md:text-lg mb-8 max-w-xl mx-auto">
+          The sky lanterns are ascending into the cosmic night, but our connection remains unbroken. Whether you want to talk about mechanical engineering, collaborate on video editing, or build web alchemy, my inbox is open!
+        </p>
+
+        <a href="mailto:vaishnavi.adhikari19@gmail.com" class="wax-seal-btn inline-flex items-center space-x-3 px-8 py-4 rounded-full text-white font-serif font-semibold text-base tracking-wider transition-transform hover:scale-105">
+          <i class="fa-solid fa-paper-plane text-dynasty-gold"></i>
+          <span>vaishnavi.adhikari19@gmail.com</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PARCHMENT MANUSCRIPT MODAL -->
+  <div id="modal-overlay" class="fixed inset-0 z-50 bg-imperial-deep/80 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeModal(event)">
+    <div class="bg-imperial-curtain border-2 border-dynasty-gold rounded-2xl max-w-xl w-full p-8 relative shadow-[0_0_50px_rgba(243,156,18,0.3)] transform scale-95 transition-transform duration-300" onclick="event.stopPropagation()">
+      <button onclick="closeModal(null, true)" class="absolute top-4 right-5 text-dynasty-gold text-2xl hover:text-white">&times;</button>
+      <h3 id="modal-title" class="font-title text-2xl text-dynasty-gold mb-4"></h3>
+      <div id="modal-body" class="text-slate-300 leading-relaxed font-light space-y-4"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript Behavior Engine -->
+  <script>
+    /* 1. Dynamic Scroll & Dialogue Observer Engine */
+    const guideDialogue = document.getElementById('guide-dialogue');
+    const chapterBlocks = document.querySelectorAll('.chapter-block');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const comment = entry.target.getAttribute('data-comment');
+          if (comment) {
+            guideDialogue.innerText = comment;
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    chapterBlocks.forEach(block => observer.observe(block));
+
+    /* Avatar Click Easter Egg */
+    document.getElementById('heiress-avatar').addEventListener('click', () => {
+      const quotes = [
+        "My sword cuts through complex bugs, my parasol shields from mundane code! 🗡️",
+        "Did you click the floating doodled lotus or dragon quill yet?",
+        "Engineering + Cinematography = Unlimited Power! ✨"
+      ];
+      guideDialogue.innerText = quotes[Math.floor(Math.random() * quotes.length)];
+    });
+
+    /* 2. Background Canvas Animation (Lanterns & Stardust) */
+    const canvas = document.getElementById('background-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    function resize() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class SkyLantern {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + 50;
+        this.speedY = 0.4 + Math.random() * 0.6;
+        this.size = 10 + Math.random() * 14;
+        this.opacity = 0.3 + Math.random() * 0.5;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += Math.sin(this.y * 0.008) * 0.5;
+        if (this.y < -50) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.fillStyle = `rgba(243, 156, 18, ${this.opacity})`;
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = "#f1c40f";
+        ctx.beginPath();
+        ctx.roundRect(this.x, this.y, this.size, this.size * 1.3, 3);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class Stardust {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = 1 + Math.random() * 2;
+        this.alpha = Math.random();
+        this.speed = 0.01 + Math.random() * 0.02;
+      }
+      update() {
+        this.alpha += this.speed;
+        if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(26, 188, 156, ${Math.max(0, this.alpha)})`;
+        ctx.fill();
+      }
+    }
+
+    const lanterns = Array.from({ length: 20 }, () => new SkyLantern());
+    const dust = Array.from({ length: 50 }, () => new Stardust());
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+      lanterns.forEach(l => { l.update(); l.draw(); });
+      dust.forEach(d => { d.update(); d.draw(); });
+      requestAnimationFrame(render);
+    }
+    render();
+
+    /* 3. Modal Manuscript Data & Handlers */
+    const modalContent = {
+      origin: {
+        title: "🌸 Origin Scroll Excerpt",
+        body: "<p>Studying Mechanical Engineering at Lucknow University equips me with a deep structural understanding of physical systems, which I directly apply to digital user interface architecture!</p>"
+      },
+      quill: {
+        title: "📜 Published Poetry & Anchoring",
+        body: "<p>Words hold immense power. Having my poetry featured in school magazines and anchoring major university events taught me how to engage audiences with emotional authenticity and flair.</p>"
+      },
+      code: {
+        title: "⚡ Architecture Specs",
+        body: "<p>This web scroll is built with modern Tailwind CSS utilities, pure CSS keyframe art, dynamic Canvas particle layers, and optimized DOM event observers.</p>"
+      },
+      films: {
+        title: "🎬 Favourite Film Inspirations",
+        body: "<p>Inspired by the poetic visuals of Xianxia drama classics, high-budget historical cinema, and deep atmospheric color grading in DaVinci Resolve.</p>"
+      },
+      astronomy: {
+        title: "🌌 Celestial Reading Logs",
+        body: "<p>Deeply fascinated by astrophysics, planetary motion, orbital mechanics, and observational astronomy under clear night skies.</p>"
+      },
+      poetry: {
+        title: "🪶 Poetry Archives",
+        body: "<p>Verses published across school periodicals focusing on time, human emotion, and cosmic mysteries.</p>"
+      }
+    };
+
+    function openModal(key) {
+      const data = modalContent[key];
+      if (!data) return;
+      document.getElementById('modal-title').innerHTML = data.title;
+      document.getElementById('modal-body').innerHTML = data.body;
+      const overlay = document.getElementById('modal-overlay');
+      overlay.classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeModal(e, force = false) {
+      const overlay = document.getElementById('modal-overlay');
+      overlay.classList.add('opacity-0', 'pointer-events-none');
+    }
+  </script>
+</body>
+</html>
