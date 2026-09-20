@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaishnavi Adhikari — Imperial Heiress of the Digital Dynasty</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Standard Tailwind Play CDN (Used only for utility spacing/layout) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        imperial: {
+                            deep: '#050814',
+                            slate: '#1c2541',
+                            card: 'rgba(28, 37, 65, 0.7)'
+                        },
+                        dynasty: {
+                            gold: '#f39c12',
+                            glow: '#f1c40f',
+                            vermilion: '#e74c3c',
+                            jade: '#1abc9c',
+                            silk: '#edf2f4',
+                            paper: '#f8f1e5'
+                        }
+                    },
+                    fontFamily: {
+                        title: ['"Cinzel Decorative"', 'serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                        sans: ['"Jost"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Dedicated Style Block for Complex Game UI, CSS Art, and Animations -->
+    <style>
+        /* --- Reset & Core Atmosphere --- */
+        :root {
+            --bg-color: #050814;
+            --gold-primary: #f39c12;
+            --red-string: #e74c3c;
+            --jade-main: #1abc9c;
+            --text-light: #edf2f4;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            font-family: 'Jost', sans-serif;
+            overflow: hidden; /* Start locked for Visual Novel Intro */
+        }
+
+        canvas#background-layer {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 1; pointer-events: none;
+        }
+
+        /* --- VISUAL NOVEL INTRO CURTAIN (Centered Centerpiece) --- */
+        #intro-curtain {
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: radial-gradient(circle at center, #0b132b 0%, var(--bg-color) 100%);
+            z-index: 900;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 1; transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1), opacity 1.2s ease;
+        }
+
+        #intro-curtain.slide-away {
+            transform: translateY(-100%); opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Pure CSS Art: Imperial Heiress Center Silhouette */
+        .heiress-silhouette {
+            position: relative;
+            width: 320px; height: 420px;
+            margin-bottom: -30px;
+            filter: drop-shadow(0 0 15px rgba(26, 188, 156, 0.6));
+            z-index: 5;
+        }
+
+        /* Crimson Umbrella Overhead */
+        .umbrella-canopy {
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+            width: 180px; height: 45px;
+            background: linear-gradient(135deg, var(--dynasty-gold) 10%, #c0392b 90%);
+            border-radius: 90px 90px 10px 10px; border: 2px solid var(--dynasty-gold); z-index: 10;
+        }
+        .umbrella-handle {
+            position: absolute; top: 43px; left: 102px;
+            width: 4px; height: 95px;
+            background: var(--dynasty-gold); z-index: 9; border-radius: 2px;
+        }
+
+        /* Heiress Body & Robes */
+        .hair-flowing {
+            position: absolute; top: 40px; left: 60px;
+            width: 90px; height: 160px;
+            background: #080a10; border-radius: 45px 45px 10px 10px;
+            z-index: 8; transform: rotate(-3deg);
+            animation: hairSway 5s ease-in-out infinite alternate;
+        }
+        .head {
+            position: absolute; top: 55px; left: 93px;
+            width: 42px; height: 48px;
+            background: #ffe1b8; border-radius: 50% 50% 40% 40%;
+            z-index: 11;
+        }
+        .hanfu-robes {
+            position: absolute; top: 100px; left: 75px;
+            width: 85px; height: 130px;
+            background: linear-gradient(180deg, var(--jade-main), #0b132b);
+            border-radius: 20px 20px 5px 5px;
+            z-index: 7; border-top: 3px solid var(--red-string);
+        }
+
+        /* Assets: Green Jade Sword (Unsheathed) */
+        .jade-sword-absolute {
+            position: absolute; top: 70px; right: 35px;
+            width: 6px; height: 160px;
+            background: linear-gradient(180deg, #ffffff 10%, var(--jade-main) 60%, #0e6251 100%);
+            z-index: 12; transform: rotate(20deg);
+            box-shadow: 0 0 15px var(--jade-main); border-radius: 3px;
+        }
+        .sword-hilt {
+            position: absolute; top: 65px; right: 22px;
+            width: 30px; height: 8px;
+            background: var(--dynasty-gold);
+            z-index: 13; transform: rotate(20deg); border-radius: 2px;
+        }
+
+        /* Assets: Trailing Fate Strings */
+        .fate-strings-vessel {
+            position: absolute; top: 180px; left: 0; width: 320px; height: 200px;
+            z-index: 6; pointer-events: none; opacity: 0.6;
+        }
+
+        /* --- Storyline Greeting Dialogue Box --- */
+        .greeting-dialogue-box {
+            width: 90%; max-width: 800px;
+            background-color: rgba(11, 19, 43, 0.9);
+            border: 2px solid var(--gold-primary);
+            border-radius: 18px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(243, 156, 18, 0.25);
+            backdrop-filter: blur(10px);
+            position: relative; z-index: 15;
+        }
+        
+        .greeting-dialogue-box p {
+            font-size: 1.2rem; line-height: 1.7;
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--dynasty-silk); font-weight: 300;
+        }
+
+        /* Calligraphic Scroll Seal Button */
+        #scroll-trigger-btn {
+            background: radial-gradient(circle at center, #c0392b, #8e44ad);
+            border: 3px solid var(--gold-primary);
+            color: #ffffff;
+            font-family: 'Cinzel Decorative', serif; font-weight: 900;
+            text-transform: uppercase; letter-spacing: 3px; font-size: 1.1rem;
+            padding: 18px 45px; margin-top: 25px;
+            cursor: pointer; border-radius: 50px;
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        #scroll-trigger-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(243, 156, 18, 0.6);
+            border-color: #ffffff;
+        }
+
+        /* --- MAIN UNLOCKED CONTENT (Initially Hidden/Locked) --- */
+        #dynasty-main-scroll {
+            position: relative; z-index: 10;
+            width: 100%; height: 100%;
+            overflow-y: auto; overflow-x: hidden;
+            display: none; /* Crucial: Start completely hidden */
+            opacity: 0; transition: opacity 1.5s ease;
+        }
+
+        #dynasty-main-scroll.unlocked {
+            display: block; opacity: 1;
+        }
+
+        /* --- PERSISTENT FLOATING GUIDE (Fairy Avatar) --- */
+        #persistent-fairy-guide {
+            position: fixed; bottom: 30px; right: 30px;
+            display: flex; flex-direction: row-reverse; align-items: flex-end;
+            z-index: 800;
+            opacity: 0; pointer-events: none;
+            transition: opacity 1s ease 1.2s, transform 1s ease;
+            transform: scale(0);
+        }
+
+        #persistent-fairy-guide.summoned {
+            opacity: 1; pointer-events: auto; transform: scale(1);
+        }
+
+        /* The miniature avatar block (scaled silhouette) */
+        .fairy-avatar {
+            width: 100px; height: 120px;
+            filter: drop-shadow(0 0 10px rgba(26, 188, 156, 0.4));
+            cursor: pointer;
+            animation: fairyFloat 4s ease-in-out infinite;
+        }
+        
+        .fairy-avatar .umbrella-canopy { width: 60px; height: 15px; top: 10px; border-width: 1px; }
+        .fairy-avatar .umbrella-handle { width: 1.5px; height: 35px; top: 25px; left: 34px; }
+        .fairy-avatar .hair-flowing { width: 30px; height: 60px; top: 25px; left: 19px; border-radius: 15px 15px 4px 4px; }
+        .fairy-avatar .head { width: 14px; height: 16px; top: 30px; left: 31px; }
+        .fairy-avatar .hanfu-robes { width: 28px; height: 40px; top: 45px; left: 26px; border-top-width: 1.5px; }
+        .fairy-avatar .jade-sword-absolute { width: 2.5px; height: 60px; top: 35px; right: 10px; box-shadow: 0 0 8px var(--jade-main); }
+        .fairy-avatar .sword-hilt { width: 10px; height: 3px; top: 33px; right: 5px; }
+
+        /* Fairy Speech Bubble */
+        .fairy-speech-bubble {
+            background-color: rgba(11, 19, 43, 0.95);
+            border: 1px solid var(--gold-primary);
+            border-radius: 14px;
+            padding: 16px 22px;
+            margin-right: 15px; margin-bottom: 25px;
+            width: 280px;
+            box-shadow: 0 0 15px rgba(243, 156, 18, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+        }
+
+        .fairy-speech-bubble p {
+            font-size: 0.95rem; line-height: 1.5;
+            color: var(--dynasty-silk); font-weight: 400; font-family: 'Jost', sans-serif;
+        }
+
+        /* Bubble Tail */
+        .fairy-speech-bubble::after {
+            content: ''; position: absolute; bottom: 15px; right: -10px;
+            width: 0; height: 0;
+            border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+            border-left: 10px solid var(--gold-primary);
+        }
+
+        /* --- Hidden Vault Modals (Parchment Styled) --- */
+        .parchment-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .parchment-modal-overlay.active { display: flex; opacity: 1; }
+
+        .manuscript-parchment {
+            background-color: #f8f1e5;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%23f8f1e5" width="100" height="100"/><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100" height="100" filter="url(%23noise)" opacity="0.05"/></svg>');
+            border: 15px solid #3c2f21;
+            border-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50"><rect fill="%233c2f21" width="50" height="50"/><circle fill="%23f39c12" cx="25" cy="25" r="5"/></svg>') 15 stretch;
+            border-radius: 5px;
+            width: 90%; max-width: 650px;
+            max-height: 80vh; overflow-y: auto;
+            color: #3c2f21;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            position: relative;
+            transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .parchment-modal-overlay.active .manuscript-parchment { transform: scale(1); }
+
+        .close-parchment {
+            position: absolute; top: 15px; right: 20px;
+            font-size: 2rem; color: #3c2f21;
+            background: none; border: none; cursor: pointer;
+            font-family: 'Cinzel Decorative', serif;
+        }
+
+        .manuscript-parchment h3 { font-family: 'Cinzel Decorative', serif; font-size: 1.8rem; color: #3c2f21; margin-bottom: 20px; border-bottom: 2px solid #3c2f21; display: inline-block;}
+        .manuscript-parchment p, .manuscript-parchment ul { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; line-height: 1.7; }
+        .manuscript-parchment ul { list-style: disc; margin-left: 20px; }
+
+        /* --- Imperial Archives Gateway (Empty Projects Gate) --- */
+        .imperial-archives-gate {
+            border: 2px dashed rgba(243, 156, 18, 0.6);
+            border-radius: 12px;
+            padding: 30px;
+            background: rgba(11, 19, 43, 0.4);
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+        
+        .imperial-archives-gate:hover {
+            border-color: var(--dynasty-glow);
+            background: rgba(11, 19, 43, 0.6);
+        }
+        
+        #archives-gateway-btn {
+            background: radial-gradient(circle at center, var(--jade-main), #0e6251);
+            border: 2px solid #ffffff;
+            color: #ffffff;
+            font-family: 'Cinzel Decorative', serif;
+            letter-spacing: 2px;
+            padding: 15px 35px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(26, 188, 156, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        #archives-gateway-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(26, 188, 156, 0.5);
+        }
+
+        /* --- Background Doodles --- */
+        .bg-doodle {
+            position: absolute; cursor: pointer;
+            z-index: 10; opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+            animation: doodleFloat 6s ease-in-out infinite alternate;
+        }
+        .bg-doodle:hover { opacity: 1; transform: scale(1.1); }
+
+        /* --- Core Layout & Typography --- */
+        h1, h2, h3 { font-family: 'Cinzel Decorative', serif; tracking: 1px; }
+        .section-tag { font-family: 'Cormorant Garamond', serif; text-transform: uppercase; letter-spacing: 3px; color: var(--jade-main); font-style: italic;}
+        p { font-size: 1.1rem; line-height: 1.8; color: #a1aab2; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050814; }
+        ::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f39c12; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes hairSway { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+        @keyframes fairyFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes doodleFloat { 0% { transform: translateY(0) rotate(0); } 100% { transform: translateY(-10px) rotate(5deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Particle/Star Layer -->
+    <canvas id="background-layer"></canvas>
+
+    <!-- Visual Novel Intro Curtain ( Prologue Deck ) -->
+    <div id="intro-curtain">
+        
+        <!-- Large Heiress Silhouette -->
+        <div class="heiress-silhouette">
+            <div class="umbrella-canopy"></div>
+            <div class="umbrella-handle"></div>
+            <div class="hair-flowing"></div>
+            <div class="head"></div>
+            <div class="hanfu-robes"></div>
+            <div class="sword-hilt"></div>
+            <div class="jade-sword-absolute"></div>
+            
+            <!-- Fate Strings SVG Vesse -->
+            <svg class="fate-strings-vessel" viewBox="0 0 320 200" preserveAspectRatio="none">
+                <path d="M 0,100 Q 80,150 160,100 T 320,150" stroke="#e74c3c" stroke-width="1.5" fill="none" opacity="0.6"/>
+                <path d="M 30,50 Q 110,200 190,50 T 350,200" stroke="#e74c3c" stroke-width="1" fill="none" opacity="0.4"/>
+            </svg>
+        </div>
+
+        <!-- Greeting Dialogue Box -->
+        <div class="greeting-dialogue-box">
+            <h1 class="font-title text-2xl text-dynasty-gold mb-6 tracking-wider">傳輸 // IMPERIAL TRANSMISSION</h1>
+            <p>
+                Hold, traveler! You are entering the digital dynasty of Vaishnavi Adhikari. I am a first-year Mechanical Engineering student at Lucknow University who spends her days solving physics equations and her nights directing cinematic timelines. Unroll this scroll to explore my universe! ✨
+            </p>
+            <button id="scroll-trigger-btn">Unroll Scroll 📜</button>
+        </div>
+    </div>
+
+    <!-- Persistent Floating Fairy Guide (Summoned after unlocking) -->
+    <aside id="persistent-fairy-guide">
+        <div class="fairy-avatar" title="Click me for a casual chat!">
+            <div class="umbrella-canopy"></div>
+            <div class="umbrella-handle"></div>
+            <div class="hair-flowing"></div>
+            <div class="head"></div>
+            <div class="hanfu-robes"></div>
+            <div class="sword-hilt"></div>
+            <div class="jade-sword-absolute"></div>
+        </div>
+        <div class="fairy-speech-bubble">
+            <p id="guide-speech-content">Greeting, noble traveler! My scroll is yours to explore.</p>
+        </div>
+    </aside>
+
+    <!-- Hidden Vault Modals -->
+    <div id="parchment-modal" class="parchment-modal-overlay" onclick="closeModal(event)">
+        <div class="manuscript-parchment" onclick="event.stopPropagation()">
+            <button class="close-parchment" onclick="closeModal(null, true)">&times;</button>
+            <h3 id="modal-title"></h3>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Project Chamber (Secondary Empty Layout) -->
+    <section id="project-chamber-layout" class="fixed inset-0 z-1000 bg-imperial-deep/95 backdrop-blur-lg flex flex-col items-center justify-center p-12 transition-all duration-700 ease-out opacity-0 pointer-events-none transform translate-y-12">
+        <button onclick="closeProjectChamber()" class="absolute top-8 left-8 text-3xl font-serif text-white hover:text-dynasty-gold transition-colors">← Exit Chamber</button>
+        <div class="manuscript-parchment max-w-4xl w-full text-center p-16">
+            <h3 class="text-4xl mb-6">Imperial Archives Gateway</h3>
+            <p class="font-serif italic text-2xl text-slate-700">The projects are locked in deep stasis, waiting for me to finish hackathon battle. This chamber is currently void of artifacts. Come back once victory is mine! ☸</p>
+        </div>
+    </section>
+
+    <!-- Main Dynasty Layout Container -->
+    <main id="dynasty-main-scroll">
+        
+        <!-- Whimsical BG Doodles -->
+        <span class="bg-doodle text-5xl left-12 top-[40vh]" onclick="openModal('lotus')">🌸</span>
+        <span class="bg-doodle text-5xl right-16 top-[65vh]" onclick="openModal('fate')">🪢</span>
+        <span class="bg-doodle text-5xl left-24 top-[90vh]" onclick="openModal('sword')">⚔️</span>
+
+        <div class="container mx-auto max-w-5xl px-6 py-16 flex flex-col items-center">
+            
+            <!-- Hero Header -->
+            <header class="text-center mb-24 w-full">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl font-title font-black text-white tracking-wider text-shadow-lg leading-tight">
+                    VAISHNAVI ADHIKARI
+                </h1>
+                <div class="h-0.5 w-32 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent mx-auto my-5"></div>
+                <p class="font-serif text-xl sm:text-2xl text-dynasty-gold italic tracking-wide">
+                    Mechanical Tinkerer • Cinematic Storyteller • Visual Alchemist
+                </p>
+            </header>
+
+            <!-- Chapter Blocks Container -->
+            <div class="w-full space-y-16">
+                
+                <!-- CHAPTER 1: THE ORIGIN -->
+                <section class="chapter-section w-full" id="chapter1" data-comment="First year Mech student at Lucknow Uni! I calculate gear trains, but I'd rather frame a camera dolly shot. ☕">
+                    <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-10 relative overflow-hidden shadow-2xl backdrop-blur-sm">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent"></div>
+                        <span class="section-tag mb-1 block">Chapter I</span>
+                        <h2 class="text-3xl text-white mb-6">The Origin</h2>
+                        <p class="text-slate-300">
+                            Engineering freshman at Lucknow University. My daily life is Thermodynamics and Solid Mechanics equations, but honestly, I'm analyzing color theory in Canva and DaVinci Resolve timelines most nights. I love finding where structural precision meets pure visual drama.
+                        </p>
+                    </div>
+                </section>
+
+                <div class="my-8 text-center text-dynasty-gold opacity-50 text-xl">☸</div>
+
+                <!-- CHAPTER 2: THE COSMIC VAULT -->
+                <section class="chapter-section w-full" id="chapter2" data-comment="Space is huge. Sometimes when my code breaks, I just stare at star charts and remember my bugs are insignificant. 🌌">
+                    <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-10 relative overflow-hidden shadow-2xl backdrop-blur-sm">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-jade to-transparent"></div>
+                        <span class="section-tag mb-1 block">Chapter II</span>
+                        <h2 class="text-3xl text-white mb-6">The Cosmic Vault</h2>
+                        <p class="text-slate-300 mb-8">
+                            I harbor a pretty serious obsession with space exploration, deep astronomy, and star systems. If the universe is the ultimate digital dynasty, then the stars are its code.
+                        </p>
+                        <!-- Gateway Button -->
+                        <div class="imperial-archives-gate text-center">
+                            <h4 class="font-serif text-dynasty-gold mb-4 text-xs tracking-widest uppercase">Celestial Schematics Chamber</h4>
+                            <button id="archives-gateway-btn" onclick="openProjectChamber()">
+                                ✨ [ DIVE DEEPER INTO THE PROJECTS CHAMBER ] ✨
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="my-8 text-center text-dynasty-gold opacity-50 text-xl">☸</div>
+
+                <!-- CHAPTER 3: THE DIRECTOR'S CUT -->
+                <section class="chapter-section w-full" id="chapter3" data-comment="Visuals are my true language. If a video frame doesn't give me goosebumps, I color grade it again. 🎬">
+                    <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-10 relative overflow-hidden shadow-2xl backdrop-blur-sm">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-vermilion to-transparent"></div>
+                        <span class="section-tag mb-1 block">Chapter III</span>
+                        <h2 class="text-3xl text-white mb-6">The Director's Cut</h2>
+                        <p class="text-slate-300 mb-8">
+                            Visual editing isn't just a hobby; it's essential alchemy. I spend hours in Canva mastering visual hierarchies and DaVinci Resolve timing dramatic timelines just for fun. Visual storytelling is my preferred language.
+                        </p>
+                        <!-- Gateway Button -->
+                        <div class="imperial-archives-gate text-center">
+                            <h4 class="font-serif text-dynasty-vermilion mb-4 text-xs tracking-widest uppercase">Cinematic Projects Chamber</h4>
+                            <button id="archives-gateway-btn" style="background: radial-gradient(circle at center, var(--dynasty-vermilion), #a02010);" onclick="openProjectChamber()">
+                                🎬 [ DIVE DEEPER INTO THE PROJECTS CHAMBER ] 🎬
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="my-8 text-center text-dynasty-gold opacity-50 text-xl">☸</div>
+
+                <!-- CHAPTER 4: CODE PAVILION -->
+                <section class="chapter-section w-full" id="chapter4" data-comment="Code isn't dry to me—it's like digital origami! Every function call is a new fold in the visual universe. 💻">
+                    <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-10 relative overflow-hidden shadow-2xl backdrop-blur-sm">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-jade to-transparent"></div>
+                        <span class="section-tag mb-1 block">Chapter IV</span>
+                        <h2 class="text-3xl text-white mb-6">Code Pavilion</h2>
+                        <p class="text-slate-300">
+                            Freshly exploring software development and looking to make digital things feel poetic. Trying to make logic feel as majestic as a historical drama centerpiece. Current tools: Html/Tailwind alchemy, JavaScript physics simulations, and turning abstract logic into expressive art.
+                        </p>
+                    </div>
+                </section>
+
+                <div class="my-8 text-center text-dynasty-gold opacity-50 text-xl">☸</div>
+
+                <!-- CHAPTER 5: THE SIGNAL TRANSMISSION -->
+                <section class="chapter-section w-full" id="chapter5" data-comment="Ready to collaborate or create some visual alchemy together? Send me a signal! 💌">
+                    <div class="bg-imperial-card border border-dynasty-gold/30 rounded-2xl p-10 relative overflow-hidden shadow-2xl text-center backdrop-blur-sm">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-dynasty-gold to-transparent"></div>
+                        <span class="section-tag mb-1 block">Chapter V</span>
+                        <h2 class="text-3xl text-white mb-6">Signal Transmission</h2>
+                        <p class="text-slate-300 mb-8">
+                            The lanterns are ascending, noble traveler. The dynasty is always expanding. If you are looking to collaborate on a mechanical design or visual narrative, dispatch a signal!
+                        </p>
+                        <a href="mailto:vaishnavi.adhikari19@gmail.com" class="inline-block" style="background: radial-gradient(circle at center, var(--dynasty-vermilion), #c0392b); border: 2px solid #ffffff; color: #ffffff; font-family: 'Cinzel Decorative', serif; font-weight: 900; letter-spacing: 2px; padding: 16px 40px; border-radius: 50px; cursor: pointer; box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3); transition: transform 0.2s ease;">
+                            ✉ Vaishnavi.Adhikari19@gmail.com
+                        </a>
+                    </div>
+                </section>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        /* 1. VISUAL NOVEL PROLOGUE ENGINE (Center Stage → Unlock ) */
+        const triggerBtn = document.getElementById('scroll-trigger-btn');
+        const introCurtain = document.getElementById('intro-curtain');
+        const mainScroll = document.getElementById('dynasty-main-scroll');
+        const fairyGuide = document.getElementById('persistent-fairy-guide');
+        const html = document.documentElement;
+
+        triggerBtn.addEventListener('click', function() {
+            // Trigger flalwess transition
+            introCurtain.classList.add('slide-away');
+            
+            // Re-unlock main content container and make it scrollable
+            setTimeout(() => {
+                introCurtain.style.display = 'none'; // Completely kill intro overlay display
+                mainScroll.classList.add('unlocked');
+                html.style.overflow = 'auto'; // Unlock body scroll
+                
+                // Summon the persistent guide companion
+                setTimeout(() => {
+                    fairyGuide.classList.add('summoned');
+                }, 500); // Small delay after unrolling
+                
+            }, 1200); // Matches transition duration
+        });
+
+        /* 2. PERSISTENT FLOATING GUIDE EVENT LISTENER SYSTEM */
+        const speechContent = document.getElementById('guide-speech-content');
+        const chapters = document.querySelectorAll('.chapter-section');
+
+        const commentObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const customComment = entry.target.getAttribute('data-comment');
+                    if (customComment) {
+                        speechContent.innerText = customComment;
+                    }
+                }
+            });
+        }, { threshold: 0.5 }); // Active when 50% visible
+
+        chapters.forEach(chapter => commentObserver.observe(chapter));
+
+        // Fairy Avatar Easter Egg (Fun dialogue on click)
+        const fairyAvatar = document.querySelector('.fairy-avatar');
+        fairyAvatar.addEventListener('click', () => {
+            const extraThoughts = [
+                "My sword cuts through spaghetti code, my umbrella blocks the mundane! 🛡️",
+                "Seriously, thermodynamis equations are just visual novel timelines for physics.",
+                "The red strings are code references that actually work!",
+                "Check out the doodles for hidden vaults!"
+            ];
+            speechContent.innerText = extraThoughts[Math.floor(Math.random() * extraThoughts.length)];
+        });
+
+        /* 3. HIDDEN DOODLE VAULT MODAL SYSTEM (Parchment Styles) */
+        const modal = document.getElementById('parchment-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        const vaultContent = {
+            lotus: {
+                title: '🌸 Cinematic Vault',
+                body: `<p>Film Favorites:</p>
+                        <ul>
+                            <li>Absolute Favorite Xianxia Visuas: "Love Between Fairy and Devil." The color palettes are visual ecstasy.</li>
+                            <li>Cinematic Dramas: Pursuit of Jade (obviously!), Nirvana In Fire (Masterclass pacing).</li>
+                            <li>DaVinci Resolve Techniques I LOVE Dissecting: Color Grading, Narrative Lighting, Camera Motion analysis.</li>
+                        </ul>`
+            },
+            fate: {
+                title: '🪢 Cosmic Vault',
+                body: `<p>My deep-space passion logs:</p>
+                        <ul>
+                            <li>Space Paradoxes that keep me up: Fermi Paradox (Are we alone? Spooky.), Time Dilation (Interstellar vibes).</li>
+                            <li>Astronomy Texts: Sagan's Cosmos (The bible!), Stephen Hawking stuff. Star charts are majestic code!</li>
+                        </ul>`
+            },
+            sword: {
+                title: '⚔️ Secret Hobby Log',
+                body: `<p>My messy creative thoughts log:</p>
+                        <ul>
+                            <li>Secret Poetry: Verses published in my school magazines—mostly about cosmic scale and emotional tides.</li>
+                            <li>Hobby Logbooks: Dissecting film grain, analyzing anime composition, sketching mechanical blueprints that probably won't work in real physics.</li>
+                        </ul>`
+            }
+        };
+
+        function openModal(doodleKey) {
+            const data = vaultContent[doodleKey];
+            if (!data) return;
+            modalTitle.innerText = data.title;
+            modalBody.innerHTML = data.body;
+            modal.classList.add('active');
+        }
+
+        function closeModal(e, force = false) {
+            if (force || (e && e.target === modal)) {
+                modal.classList.remove('active');
+            }
+        }
+
+        /* 4. Imperial Archives Gateway Chamber Handlers */
+        const projectChamber = document.getElementById('project-chamber-layout');
+        function openProjectChamber() {
+            mainScroll.classList.remove('unlocked');
+            mainScroll.style.display = 'none';
+            projectChamber.style.display = 'flex';
+            setTimeout(() => {
+                projectChamber.classList.add('opacity-100', 'translate-y-0');
+                projectChamber.classList.remove('opacity-0', 'translate-y-12', 'pointer-events-none');
+            }, 50);
+        }
+        function closeProjectChamber() {
+            projectChamber.classList.add('opacity-0', 'translate-y-12', 'pointer-events-none');
+            projectChamber.classList.remove('opacity-100', 'translate-y-0');
+            setTimeout(() => {
+                projectChamber.style.display = 'none';
+                mainScroll.style.display = 'block';
+                setTimeout(() => mainScroll.classList.add('unlocked'), 50);
+            }, 700);
+        }
+
+        /* 5. CANVAS BACKGROUND (PARTICLES/LANTERNS) */
+        const canvas = document.getElementById('background-layer');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class SkyLantern {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = height + 100;
+                this.speedY = 0.5 + Math.random();
+                this.size = 10 + Math.random() * 20;
+                this.opacity = 0.4 + Math.random() * 0.6;
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += Math.sin(this.y * 0.01) * 0.3; // Gentle sway
+                if (this.y < -150) this.reset();
+            }
+            draw() {
+                ctx.save();
+                ctx.fillStyle = `rgba(243, 156, 18, ${this.opacity})`;
+                ctx.shadowBlur = 10; ctx.shadowColor = "#f1c40f";
+                ctx.beginPath();
+                ctx.roundRect(this.x, this.y, this.size, this.size * 1.3, 3);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        class Stardust {
+            constructor() {
+                this.x = Math.random() * width; this.y = Math.random() * height;
+                this.size = Math.random() * 2;
+                this.alpha = Math.random() * 0.8;
+                this.speed = 0.01 + Math.random() * 0.02;
+            }
+            update() {
+                this.alpha += this.speed;
+                if (this.alpha > 0.8 || this.alpha < 0) this.speed = -this.speed;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(26, 188, 156, ${Math.max(0, this.alpha)})`;
+                ctx.fill();
+            }
+        }
+
+        const lanterns = Array.from({ length: 25 }, () => new SkyLantern());
+        const dust = Array.from({ length: 60 }, () => new Stardust());
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            lanterns.forEach(l => { l.update(); l.draw(); });
+            dust.forEach(d => { d.update(); d.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
