@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vaishnavi Adhikari — The Celestial Strategist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Ma+Shan+Zheng&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.1/tailwind.min.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: "#0A0509",
+          void: "#120A1E",
+          plum: "#1D0F22",
+          crimson: { DEFAULT: "#8C1F32", bright: "#C23B4B", deep: "#5A0F1F" },
+          gold: { DEFAULT: "#C9A24B", bright: "#F0D28A", dim: "#8A6B2E" },
+          jade: { DEFAULT: "#2F6E5B", bright: "#4FA98A" },
+          paper: "#F3E8D8",
+          mist: "#B9A9AE",
+        },
+        fontFamily: {
+          display: ["Cinzel Decorative", "Cinzel", "serif"],
+          heading: ["Cinzel", "serif"],
+          brush: ["Ma Shan Zheng", "cursive"],
+          body: ["Cormorant Garamond", "serif"],
+          ui: ["Jost", "sans-serif"],
+        },
+        letterSpacing: { widest2: "0.3em", widest3: "0.42em" },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+
+  body {
+    background-color: #0A0509;
+    font-family: "Cormorant Garamond", serif;
+    color: #EDE0D6;
+    overflow-x: hidden;
+    position: relative;
+    cursor: default;
+  }
+
+  h1, h2, h3, .font-display, .font-heading { font-family: "Cinzel", serif; }
+
+  ::selection { background: rgba(194, 59, 75, 0.4); color: #FBEFE2; }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #0A0509; }
+  ::-webkit-scrollbar-thumb { background: #5A0F1F; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #C9A24B; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid #F0D28A; outline-offset: 3px;
+  }
+
+  /* ================= AMBIENT BACKDROP ================= */
+
+  .cosmos-backdrop {
+    position: fixed; inset: 0; z-index: -5;
+    background:
+      radial-gradient(ellipse 70% 45% at 15% -5%, rgba(194, 59, 75, 0.16), transparent 55%),
+      radial-gradient(ellipse 60% 55% at 100% 8%, rgba(201, 162, 75, 0.10), transparent 55%),
+      radial-gradient(ellipse 80% 60% at 50% 105%, rgba(29, 15, 34, 0.95), transparent 60%),
+      linear-gradient(180deg, #0A0509 0%, #150A1C 40%, #1D0F22 70%, #0A0509 100%);
+  }
+
+  .stars-layer, .drift-layer { position: fixed; inset: 0; z-index: -4; pointer-events: none; overflow: hidden; }
+
+  .star {
+    position: absolute; border-radius: 50%; background: #FBEFE2;
+    box-shadow: 0 0 6px 1px rgba(240, 210, 138, 0.55);
+    animation: twinkle 5s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.75); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .lantern-drift {
+    position: absolute; bottom: -80px; pointer-events: none;
+    animation-name: rise; animation-timing-function: ease-in; animation-iteration-count: infinite;
+    opacity: 0.85;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) rotate(-2deg); opacity: 0; }
+    8%   { opacity: 0.9; }
+    50%  { transform: translateY(-52vh) translateX(18px) rotate(2deg); }
+    92%  { opacity: 0.75; }
+    100% { transform: translateY(-108vh) translateX(-10px) rotate(-2deg); opacity: 0; }
+  }
+
+  .petal {
+    position: absolute; top: -5%; pointer-events: none; opacity: 0.85;
+    animation-name: fallSway; animation-timing-function: linear; animation-iteration-count: infinite;
+  }
+  @keyframes fallSway {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); }
+    50%  { transform: translateY(55vh) translateX(30px) rotate(180deg); }
+    100% { transform: translateY(115vh) translateX(-10px) rotate(360deg); }
+  }
+
+  .grain-overlay {
+    position: fixed; inset: -100px; z-index: -1; pointer-events: none;
+    opacity: 0.045; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift 1.4s steps(3) infinite;
+  }
+  @keyframes grain-shift {
+    0% { transform: translate(0,0); } 33% { transform: translate(-3%,2%); }
+    66% { transform: translate(2%,-3%); } 100% { transform: translate(0,0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star, .lantern-drift, .petal, .grain-overlay, .reveal, .skillbar-fill, .guide-float, .ember-burst {
+      animation: none !important; transition: none !important;
+    }
+  }
+
+  /* ================= NAV ================= */
+
+  .glass-nav {
+    background: rgba(10, 5, 9, 0.62);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid rgba(201, 162, 75, 0.16);
+  }
+
+  .nav-link {
+    position: relative; color: #CBB9AE; font-family: "Jost", sans-serif; transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0%;
+    background: linear-gradient(90deg, #C23B4B, #F0D28A);
+    border-radius: 2px; transition: width 0.35s ease;
+  }
+  .nav-link:hover { color: #FBEFE2; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* ================= BUTTONS: wax-seal / lantern feel ================= */
+
+  .btn-seal {
+    position: relative; display: inline-flex; align-items: center; gap: 0.65rem;
+    padding: 0.95rem 2.3rem; font-family: "Jost", sans-serif; font-weight: 500; letter-spacing: 0.03em;
+    color: #2A0A10; background: linear-gradient(135deg, #F0D28A, #C9A24B 45%, #C23B4B);
+    border-radius: 999px 999px 999px 4px;
+    box-shadow: 0 0 0 rgba(194,59,75,0);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+    overflow: visible;
+  }
+  .btn-seal:hover { box-shadow: 0 0 32px rgba(194, 59, 75, 0.55); transform: translateY(-2px); }
+  .btn-seal .ember-burst { position: absolute; inset: 0; pointer-events: none; }
+  .ember { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #F0D28A; opacity: 0; }
+  .btn-seal:hover .ember { animation: emberPop 0.9s ease-out forwards; }
+  @keyframes emberPop {
+    0% { opacity: 1; transform: translate(0,0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--ex), var(--ey)) scale(0.3); }
+  }
+
+  .btn-ink {
+    position: relative; display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.9rem 2.1rem; font-family: "Jost", sans-serif; color: #EDE0D6;
+    border: 1px solid rgba(201, 162, 75, 0.5); border-radius: 999px 999px 4px 999px;
+    transition: border-color 0.3s ease, background 0.3s ease, letter-spacing 0.3s ease;
+  }
+  .btn-ink:hover { border-color: #F0D28A; background: rgba(201, 162, 75, 0.08); letter-spacing: 0.04em; }
+
+  /* ================= REVEAL ================= */
+
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* ================= HERO ================= */
+
+  .hero-title {
+    line-height: 1.05; text-shadow: 0 0 44px rgba(194, 59, 75, 0.35);
+  }
+  .brushword { font-family: "Ma Shan Zheng", cursive; color: #F0D28A; }
+
+  .wing-glow { filter: drop-shadow(0 0 22px rgba(194,59,75,0.45)); }
+  .wing-left { animation: unfurlLeft 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; transform-origin: right center; }
+  .wing-right { animation: unfurlRight 1.6s cubic-bezier(0.22,1,0.36,1) 0.2s both; transform-origin: left center; }
+  @keyframes unfurlLeft { 0% { transform: scaleX(0) rotate(-8deg); opacity:0; } 100% { transform: scaleX(1) rotate(0deg); opacity:1; } }
+  @keyframes unfurlRight { 0% { transform: scaleX(0) rotate(8deg); opacity:0; } 100% { transform: scaleX(1) rotate(0deg); opacity:1; } }
+
+  .redstring-path { stroke-dasharray: 900; stroke-dashoffset: 900; animation: drawString 2.6s ease-out 0.6s forwards; }
+  @keyframes drawString { to { stroke-dashoffset: 0; } }
+
+  /* ================= DIVIDERS ================= */
+
+  .cloud-divider { opacity: 0.55; }
+
+  /* ================= CODEX ================= */
+
+  .codex-card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(29,15,34,0.75), rgba(10,5,9,0.65));
+    border: 1px solid rgba(201, 162, 75, 0.18);
+    backdrop-filter: blur(6px);
+  }
+  .codex-card::before {
+    content: ""; position: absolute; top: 10px; right: 10px; width: 26px; height: 26px;
+    background: radial-gradient(circle, rgba(240,210,138,0.5), transparent 70%);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .codex-card:hover::before { opacity: 1; }
+
+  .skillbar-track { height: 7px; background: rgba(185, 169, 174, 0.15); border-radius: 999px; overflow: hidden; position: relative; }
+  .skillbar-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, #C23B4B, #F0D28A); transition: width 1.7s cubic-bezier(0.22,1,0.36,1); }
+
+  /* ================= SCROLL VAULT ================= */
+
+  .scroll-card {
+    position: relative; border-radius: 6px;
+    background: linear-gradient(165deg, rgba(29,15,34,0.9), rgba(10,5,9,0.9));
+    border: 1px solid rgba(201, 162, 75, 0.16);
+    transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), border-color 0.5s ease, box-shadow 0.5s ease;
+    overflow: hidden;
+  }
+  .scroll-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 25% 0%, var(--glow-color, rgba(194,59,75,0.28)), transparent 62%);
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .scroll-card:hover { transform: translateY(-10px) rotate(-0.3deg); border-color: rgba(240,210,138,0.4); box-shadow: 0 26px 60px -18px rgba(0,0,0,0.65); }
+  .scroll-card:hover::before { opacity: 1; }
+  .scroll-card > * { position: relative; z-index: 1; }
+  .scroll-card .petal-corner { position: absolute; opacity: 0; transition: opacity 0.5s ease, transform 0.6s ease; transform: translateY(6px) rotate(0deg); }
+  .scroll-card:hover .petal-corner { opacity: 0.9; transform: translateY(0) rotate(18deg); }
+
+  /* ================= CONTACT ================= */
+
+  .transmission-deck { background: linear-gradient(180deg, rgba(29,15,34,0.88), rgba(10,5,9,0.92)); border: 1px solid rgba(194,59,75,0.28); }
+  .field-input { background: rgba(10,5,9,0.6); border: 1px solid rgba(185,169,174,0.28); font-family: "Cormorant Garamond", serif; font-size: 1.05rem; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .field-input:focus { outline: none; border-color: #F0D28A; box-shadow: 0 0 0 3px rgba(240,210,138,0.15); }
+  label.field-label { font-family: "Jost", sans-serif; }
+
+  /* ================= GUIDE COMPANION ================= */
+
+  #guideWrap { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: flex; align-items: flex-end; gap: 12px; }
+  .guide-bubble {
+    max-width: 220px; background: rgba(29,15,34,0.92); border: 1px solid rgba(240,210,138,0.35);
+    color: #F3E8D8; font-family: "Cormorant Garamond", serif; font-size: 0.98rem; line-height: 1.35;
+    padding: 12px 14px; border-radius: 14px 14px 4px 14px; backdrop-filter: blur(6px);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.6);
+    opacity: 0; transform: translateY(8px) scale(0.96); transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .guide-bubble.show { opacity: 1; transform: translateY(0) scale(1); }
+  .guide-avatar { width: 64px; height: 64px; cursor: pointer; }
+  .guide-float { animation: guideFloat 4.2s ease-in-out infinite; }
+  @keyframes guideFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+
+  @media (max-width: 640px) {
+    #guideWrap { right: 10px; bottom: 10px; }
+    .guide-bubble { max-width: 160px; font-size: 0.9rem; }
+    .guide-avatar { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<div class="cosmos-backdrop"></div>
+<div class="stars-layer" id="starsLayer"></div>
+<div class="drift-layer" id="driftLayer"></div>
+<div class="grain-overlay"></div>
+
+<!-- ================= NAVBAR ================= -->
+<header class="fixed top-0 inset-x-0 z-50 glass-nav">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <a href="#top" class="font-heading text-lg sm:text-xl tracking-widest2 text-gold-bright flex items-center gap-2">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#C23B4B"/><rect x="10.5" y="15" width="3" height="6" rx="1" fill="#C9A24B"/></svg>
+      V.A.
+    </a>
+
+    <div class="hidden md:flex items-center gap-10 text-sm tracking-wide">
+      <a href="#codex" class="nav-link">The Codex</a>
+      <a href="#vault" class="nav-link">The Scroll Vault</a>
+      <a href="#signal" class="nav-link">Signal Center</a>
+    </div>
+
+    <a href="#signal" class="hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 border border-gold/50 text-gold-bright hover:bg-gold/10 hover:border-gold transition-colors rounded-full font-ui">
+      <i class="fa-solid fa-fire"></i> Open a Channel
+    </a>
+
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="md:hidden text-gold-bright text-2xl">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="md:hidden hidden flex-col gap-1 px-5 pb-6 text-sm font-ui">
+    <a href="#codex" class="block py-3 border-b border-white/5 text-mist">The Codex</a>
+    <a href="#vault" class="block py-3 border-b border-white/5 text-mist">The Scroll Vault</a>
+    <a href="#signal" class="block py-3 text-mist">Signal Center</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="top" data-guide="Welcome, traveler. I'm Vaishnavi — let me walk you through my little cosmos. Scroll on." class="relative min-h-screen flex items-center pt-28 pb-24 px-5 sm:px-8 overflow-hidden">
+
+  <!-- floating lotus on water, hero corner -->
+  <svg class="absolute left-4 bottom-6 sm:left-10 sm:bottom-10 w-24 sm:w-36 opacity-80 pointer-events-none" viewBox="0 0 100 60" fill="none">
+    <ellipse cx="50" cy="52" rx="46" ry="6" fill="#5A0F1F" opacity="0.35"/>
+    <g transform="translate(50,38)">
+      <path d="M0,0 C-14,-4 -14,-18 0,-22 C14,-18 14,-4 0,0Z" fill="#C23B4B" opacity="0.9"/>
+      <path d="M0,0 C-8,-2 -8,-12 0,-15 C8,-12 8,-2 0,0Z" fill="#F0D28A" opacity="0.9"/>
+      <ellipse cx="0" cy="4" rx="20" ry="5" fill="#2F6E5B" opacity="0.7"/>
+    </g>
+  </svg>
+
+  <!-- wings behind emblem, desktop only -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none hidden lg:flex">
+    <svg class="wing-left wing-glow absolute" style="right: 51%;" width="360" height="340" viewBox="0 0 360 340" fill="none">
+      <path d="M360 40 C260 10 160 60 110 140 C170 120 220 130 250 170 C190 180 160 220 150 270 C210 250 260 260 290 300 C300 220 320 150 360 40Z" fill="url(#gradL)" opacity="0.5"/>
+      <defs><linearGradient id="gradL" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8C1F32"/><stop offset="1" stop-color="#C9A24B"/></linearGradient></defs>
+    </svg>
+    <svg class="wing-right wing-glow absolute" style="left: 51%;" width="360" height="340" viewBox="0 0 360 340" fill="none">
+      <path d="M0 40 C100 10 200 60 250 140 C190 120 140 130 110 170 C170 180 200 220 210 270 C150 250 100 260 70 300 C60 220 40 150 0 40Z" fill="url(#gradR)" opacity="0.5"/>
+      <defs><linearGradient id="gradR" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#8C1F32"/><stop offset="1" stop-color="#C9A24B"/></linearGradient></defs>
+    </svg>
+  </div>
+
+  <div class="max-w-6xl mx-auto w-full relative z-10 text-center">
+
+    <div class="reveal" data-reveal>
+      <p class="hero-kicker text-xs sm:text-sm tracking-widest3 text-gold font-ui mb-6">A PORTFOLIO IN THE FORM OF A DYNASTY RECORD</p>
+
+      <p class="brushword text-4xl sm:text-5xl mb-2">星</p>
+
+      <h1 class="hero-title font-display font-bold text-4xl sm:text-6xl md:text-7xl xl:text-8xl text-transparent bg-clip-text bg-gradient-to-br from-gold-bright via-paper to-crimson-bright">
+        VAISHNAVI ADHIKARI
+      </h1>
+      <h2 class="font-heading text-lg sm:text-2xl md:text-3xl mt-5 text-mist tracking-widest2">
+        THE CELESTIAL STRATEGIST
+      </h2>
+
+      <p class="mt-8 max-w-xl mx-auto text-lg sm:text-xl text-paper/85 leading-relaxed italic">
+        Part engineer, part storyteller — I chart orbits and story arcs with the same
+        quiet obsession. If you love clean systems and cinematic light in equal measure,
+        you have found the right pavilion.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href="#vault" class="btn-seal">
+          <i class="fa-solid fa-compass"></i> Explore My Cosmos
+          <span class="ember-burst" aria-hidden="true"></span>
+        </a>
+        <a href="#codex" class="btn-ink">
+          <i class="fa-solid fa-scroll"></i> Read the Codex
+        </a>
+      </div>
+    </div>
+
+    <!-- red string connecting hero to next chapter -->
+    <svg class="mx-auto mt-16 hidden sm:block" width="2" height="90" viewBox="0 0 2 90">
+      <line x1="1" y1="0" x2="1" y2="90" stroke="#C23B4B" stroke-width="2" class="redstring-path"/>
+    </svg>
+  </div>
+
+  <a href="#codex" aria-label="Scroll to next section" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold-bright/80 animate-bounce">
+    <i class="fa-solid fa-chevron-down"></i>
+  </a>
+</section>
+
+<!-- cloud divider -->
+<div class="cloud-divider flex justify-center py-2 px-4">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="#C9A24B" stroke-width="1.4" fill="none" opacity="0.6"/></svg>
+</div>
+
+<!-- ================= THE CHARACTER CODEX (ABOUT) ================= -->
+<section id="codex" data-guide="This is my Codex — the stats behind the strategist. Stay a while and read." class="relative py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs tracking-widest2 text-crimson-bright font-ui mb-3">CHAPTER ONE</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-paper mb-8">The Character Codex</h2>
+      <p class="text-xl sm:text-2xl text-mist leading-relaxed">
+        Hey there! I am a first-year mechanical engineering student fueled by the intersections of
+        structural design, stellar deep-space mysteries, and digital aesthetics. Operating from
+        Lucknow University, I love combining raw mathematical logic with the fluid pacing of film
+        editing and written words. Welcome to my little corner of the digital cosmos!
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="reveal codex-card p-8 rounded-lg" data-reveal style="transition-delay: 0.05s;">
+        <svg width="30" height="30" viewBox="0 0 24 24" class="mb-5"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#C23B4B"/><rect x="10.5" y="15" width="3" height="6" rx="1" fill="#C9A24B"/></svg>
+        <h3 class="font-heading text-sm tracking-widest2 text-paper mb-2">SPACE SYSTEMS</h3>
+        <p class="text-lg text-mist mb-5 leading-relaxed">
+          Fascinated by orbital mechanics, mission logic, and the hardware that lets us reach
+          past the atmosphere.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="78"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-ui" data-percent>78%</p>
+      </div>
+
+      <div class="reveal codex-card p-8 rounded-lg" data-reveal style="transition-delay: 0.15s;">
+        <svg width="30" height="30" viewBox="0 0 24 24" class="mb-5"><rect x="3" y="6" width="14" height="12" rx="1.5" fill="#F0D28A"/><path d="M17 9l4-2v10l-4-2Z" fill="#C23B4B"/></svg>
+        <h3 class="font-heading text-sm tracking-widest2 text-paper mb-2">CINEMA POST-PRODUCTION</h3>
+        <p class="text-lg text-mist mb-5 leading-relaxed">
+          Editing in DaVinci Resolve to shape color, rhythm, and mood the way a script shapes
+          a scene.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="85"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-ui" data-percent>85%</p>
+      </div>
+
+      <div class="reveal codex-card p-8 rounded-lg" data-reveal style="transition-delay: 0.25s;">
+        <svg width="30" height="30" viewBox="0 0 24 24" class="mb-5"><path d="M4 20c4-10 8-14 16-16-2 8-6 12-16 16Z" fill="#C9A24B"/></svg>
+        <h3 class="font-heading text-sm tracking-widest2 text-paper mb-2">LITERARY DECLAMATIONS</h3>
+        <p class="text-lg text-mist mb-5 leading-relaxed">
+          Poetry and public speaking, because a well-placed word can carry as much force as
+          a well-placed equation.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="90"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-ui" data-percent>90%</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="cloud-divider flex justify-center py-2 px-4">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="#C9A24B" stroke-width="1.4" fill="none" opacity="0.6"/></svg>
+</div>
+
+<!-- ================= THE SCROLL VAULT ================= -->
+<section id="vault" data-guide="These are my three domains — hardware, film, and words. Hover a scroll to unroll it." class="relative py-24 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs tracking-widest2 text-crimson-bright font-ui mb-3">CHAPTER TWO</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-paper mb-6">The Scroll Vault</h2>
+      <p class="text-xl sm:text-2xl text-mist leading-relaxed">
+        Three domains, unrolled like imperial scrolls. Each holds a different half of how I
+        think — pick one up.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <article class="reveal scroll-card p-9" data-reveal style="--glow-color: rgba(47,110,91,0.35); transition-delay:0.05s;">
+        <svg class="petal-corner absolute top-4 right-4" width="26" height="26" viewBox="0 0 24 24"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#4FA98A"/></svg>
+        <div class="w-12 h-12 rounded-full border border-jade-bright/50 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-satellite text-jade-bright"></i>
+        </div>
+        <h3 class="font-heading text-xl text-paper mb-4 tracking-wide">Hardware &amp; Cosmos</h3>
+        <p class="text-lg text-mist leading-relaxed">
+          Where circuits meet celestial mechanics. I tinker with automated hardware logic the
+          same way I trace planetary orbits — patiently, and with the conviction that every
+          system, however vast, obeys a rule worth finding.
+        </p>
+      </article>
+
+      <article class="reveal scroll-card p-9" data-reveal style="--glow-color: rgba(194,59,75,0.35); transition-delay:0.15s;">
+        <svg class="petal-corner absolute top-4 right-4" width="26" height="26" viewBox="0 0 24 24"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#C23B4B"/></svg>
+        <div class="w-12 h-12 rounded-full border border-crimson-bright/50 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-clapperboard text-crimson-bright"></i>
+        </div>
+        <h3 class="font-heading text-xl text-paper mb-4 tracking-wide">Film &amp; Frame</h3>
+        <p class="text-lg text-mist leading-relaxed">
+          Costume dramas taught me that a single frame can hold a whole dynasty's worth of
+          longing. In DaVinci Resolve, I chase that same weight — grading color like ink on
+          silk, cutting for breath and pause.
+        </p>
+      </article>
+
+      <article class="reveal scroll-card p-9" data-reveal style="--glow-color: rgba(201,162,75,0.35); transition-delay:0.25s;">
+        <svg class="petal-corner absolute top-4 right-4" width="26" height="26" viewBox="0 0 24 24"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="#F0D28A"/></svg>
+        <div class="w-12 h-12 rounded-full border border-gold/60 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-scroll text-gold-bright"></i>
+        </div>
+        <h3 class="font-heading text-xl text-paper mb-4 tracking-wide">Script &amp; Stage</h3>
+        <p class="text-lg text-mist leading-relaxed">
+          Poetry drafted in the margins of lecture notes, speeches rehearsed to an empty room —
+          this is where I practice saying things so they land, one verse at a time.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<div class="cloud-divider flex justify-center py-2 px-4">
+  <svg width="220" height="24" viewBox="0 0 220 24" fill="none"><path d="M0 16c14-14 26-14 36 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 24-14 34 0 10-14 26-14 36 0 10-14 24-14 46 0" stroke="#C9A24B" stroke-width="1.4" fill="none" opacity="0.6"/></svg>
+</div>
+
+<!-- ================= SIGNAL TRANSMISSION CENTER (CONTACT) ================= -->
+<section id="signal" data-guide="Almost there. Send a lantern into the sky, and I'll write back." class="relative py-24 px-5 sm:px-8 overflow-hidden">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="reveal text-center mb-14" data-reveal>
+      <p class="text-xs tracking-widest2 text-crimson-bright font-ui mb-3">CHAPTER THREE</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-paper mb-6">Signal Transmission Center</h2>
+      <p class="text-xl sm:text-2xl text-mist leading-relaxed">
+        Send a message across the void — I read every transmission that reaches this pavilion,
+        and I answer them all.
+      </p>
+    </div>
+
+    <form class="reveal transmission-deck p-8 sm:p-12 rounded-lg relative" data-reveal id="signalForm">
+      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label for="name" class="field-label block text-xs tracking-widest2 text-mist mb-2">YOUR NAME</label>
+          <input id="name" name="name" type="text" required placeholder="Who goes there?"
+                 class="field-input w-full px-4 py-3 text-white rounded-md placeholder:text-mist/50" />
+        </div>
+        <div>
+          <label for="email" class="field-label block text-xs tracking-widest2 text-mist mb-2">YOUR EMAIL</label>
+          <input id="email" name="email" type="email" required placeholder="you@somewhere.cosmos"
+                 class="field-input w-full px-4 py-3 text-white rounded-md placeholder:text-mist/50" />
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <label for="message" class="field-label block text-xs tracking-widest2 text-mist mb-2">YOUR MESSAGE</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell me why you're reaching out..."
+                  class="field-input w-full px-4 py-3 text-white rounded-md placeholder:text-mist/50 resize-none"></textarea>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <p class="text-xs text-mist/70 order-2 sm:order-1 font-ui">This opens your email app, addressed and ready to send.</p>
+        <button type="submit" class="btn-seal order-1 sm:order-2 w-full sm:w-auto justify-center">
+          <i class="fa-solid fa-paper-plane"></i> Send Transmission
+          <span class="ember-burst" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+
+    <div class="reveal flex justify-center gap-8 mt-12 text-xl text-mist" data-reveal>
+      <a href="#" aria-label="Instagram" class="hover:text-crimson-bright transition-colors"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn" class="hover:text-crimson-bright transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" aria-label="YouTube" class="hover:text-crimson-bright transition-colors"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="GitHub" class="hover:text-crimson-bright transition-colors"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer class="relative py-10 px-5 sm:px-8 border-t border-white/5">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-mist/60 font-ui">
+    <p>&copy; 2026 Vaishnavi Adhikari. Charted from Lucknow, under one sky.</p>
+    <p class="tracking-widest2">THE CELESTIAL STRATEGIST</p>
+  </div>
+</footer>
+
+<!-- ================= GUIDE COMPANION ================= -->
+<div id="guideWrap">
+  <div id="guideBubble" class="guide-bubble"></div>
+  <svg id="guideAvatar" class="guide-avatar guide-float" viewBox="0 0 100 100" role="button" tabindex="0" aria-label="Your guide">
+    <ellipse cx="50" cy="88" rx="30" ry="6" fill="#000" opacity="0.25"/>
+    <path d="M20 90 C15 55 25 35 50 35 C75 35 85 55 80 90Z" fill="#5A0F1F"/>
+    <path d="M50 35 C40 35 33 45 33 58 C42 54 58 54 67 58 C67 45 60 35 50 35Z" fill="#C23B4B"/>
+    <circle cx="50" cy="26" r="14" fill="#2A0A10"/>
+    <circle cx="50" cy="26" r="10" fill="#F3E8D8"/>
+    <path d="M40 20c4-6 16-6 20 0" stroke="#2A0A10" stroke-width="2" fill="none"/>
+    <path d="M36 14c8-8 20-8 28 0" stroke="#2A0A10" stroke-width="3" fill="none"/>
+    <circle cx="50" cy="12" r="3" fill="#F0D28A"/>
+  </svg>
+</div>
+
+<script>
+  // ---------- Starfield ----------
+  const starsLayer = document.getElementById('starsLayer');
+  const STAR_COUNT = window.innerWidth < 640 ? 55 : 120;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.6;
+    s.style.width = size + 'px'; s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + '%'; s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (3 + Math.random() * 4) + 's';
+    starsLayer.appendChild(s);
+  }
+
+  // ---------- Drifting lanterns ----------
+  const driftLayer = document.getElementById('driftLayer');
+  const LANTERN_COUNT = window.innerWidth < 640 ? 4 : 7;
+  const lanternSVG = (w) => `<svg width="${w}" height="${w*1.3}" viewBox="0 0 40 52" fill="none">
+      <ellipse cx="20" cy="8" rx="9" ry="3" fill="#C9A24B"/>
+      <path d="M6 10c0 18 6 28 14 30 8-2 14-12 14-30-4 4-24 4-28 0Z" fill="#C23B4B" opacity="0.92"/>
+      <path d="M6 10c0 18 6 28 14 30 8-2 14-12 14-30" stroke="#F0D28A" stroke-width="0.6" opacity="0.6" fill="none"/>
+      <rect x="18" y="40" width="4" height="8" fill="#8A6B2E"/>
+    </svg>`;
+  for (let i = 0; i < LANTERN_COUNT; i++) {
+    const l = document.createElement('div');
+    l.className = 'lantern-drift';
+    const w = 26 + Math.random() * 22;
+    l.style.left = (5 + Math.random() * 90) + '%';
+    l.style.animationDuration = (16 + Math.random() * 10) + 's';
+    l.style.animationDelay = (Math.random() * 14) + 's';
+    l.innerHTML = lanternSVG(w);
+    driftLayer.appendChild(l);
+  }
+
+  // ---------- Falling petals ----------
+  const petalSVG = (color) => `<svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2C9 6 8 8 8 11a4 4 0 0 0 8 0c0-3-1-5-4-9Z" fill="${color}"/></svg>`;
+  const petalColors = ['#C23B4B', '#F0D28A', '#4FA98A'];
+  const PETAL_COUNT = window.innerWidth < 640 ? 8 : 16;
+  for (let i = 0; i < PETAL_COUNT; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (10 + Math.random() * 10) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.innerHTML = petalSVG(petalColors[i % petalColors.length]);
+    driftLayer.appendChild(p);
+  }
+
+  // ---------- Mobile menu ----------
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('flex');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuBtn.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden'); mobileMenu.classList.remove('flex');
+    menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>'; menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ---------- Reveal on scroll ----------
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ---------- Skill bars ----------
+  const bars = document.querySelectorAll('.skillbar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.style.width = entry.target.getAttribute('data-target') + '%'; barObserver.unobserve(entry.target); }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => barObserver.observe(b));
+
+  // ---------- Ember burst on seal buttons ----------
+  document.querySelectorAll('.btn-seal').forEach(btn => {
+    const burst = btn.querySelector('.ember-burst');
+    btn.addEventListener('mouseenter', () => {
+      burst.innerHTML = '';
+      for (let i = 0; i < 10; i++) {
+        const e = document.createElement('span');
+        e.className = 'ember';
+        const angle = Math.random() * Math.PI * 2;
+        const dist = 24 + Math.random() * 24;
+        e.style.setProperty('--ex', Math.cos(angle) * dist + 'px');
+        e.style.setProperty('--ey', Math.sin(angle) * dist + 'px');
+        e.style.left = (30 + Math.random() * 40) + '%';
+        e.style.top = '50%';
+        e.style.animationDelay = (Math.random() * 0.15) + 's';
+        burst.appendChild(e);
+      }
+    });
+  });
+
+  // ---------- Guide companion ----------
+  const guideBubble = document.getElementById('guideBubble');
+  const guideAvatar = document.getElementById('guideAvatar');
+  const guideSections = document.querySelectorAll('[data-guide]');
+  let guideTimeout;
+
+  function showGuideMessage(text) {
+    guideBubble.textContent = text;
+    guideBubble.classList.add('show');
+    clearTimeout(guideTimeout);
+    guideTimeout = setTimeout(() => guideBubble.classList.remove('show'), 4200);
+  }
+
+  const guideObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) showGuideMessage(entry.target.getAttribute('data-guide'));
+    });
+  }, { threshold: 0.55 });
+  guideSections.forEach(s => guideObserver.observe(s));
+
+  guideAvatar.addEventListener('click', () => {
+    const lines = [
+      "Curious about a section? Just scroll — I'll keep talking.",
+      "Every scroll, lantern, and ember here means something to me.",
+      "Thank you for stepping into my cosmos."
+    ];
+    showGuideMessage(lines[Math.floor(Math.random() * lines.length)]);
+  });
+  guideAvatar.addEventListener('keypress', (e) => { if (e.key === 'Enter') guideAvatar.click(); });
+
+  // initial greeting shortly after load
+  window.addEventListener('load', () => setTimeout(() => showGuideMessage(document.querySelector('#top').getAttribute('data-guide')), 900));
+
+  // ---------- Contact form -> mailto, with a lantern-release moment ----------
+  const form = document.getElementById('signalForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const subject = encodeURIComponent('A transmission from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+
+    const l = document.createElement('div');
+    l.className = 'lantern-drift';
+    l.style.left = '50%';
+    l.style.animationDuration = '3.4s';
+    l.innerHTML = lanternSVG(46);
+    document.body.appendChild(l);
+    setTimeout(() => l.remove(), 3600);
+
+    setTimeout(() => {
+      window.location.href = `mailto:vaishnavi.adhikari19@gmail.com?subject=${subject}&body=${body}`;
+    }, 400);
+  });
+</script>
+
+</body>
+</html>
