@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vaish | The Whimsical Scroll</title>
+  
+  <!-- Google Fonts: Calligraphic & Clean Modern Pairings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       1. CORE RESET & THEME VARIABLES
+       ========================================================================== */
+    :root {
+      --bg-deep: #050814;
+      --bg-curtain: #0b132b;
+      --gold-primary: #f39c12;
+      --gold-glow: #f1c40f;
+      --red-string: #e74c3c;
+      --jade-highlight: #1abc9c;
+      --paper-bg: #1c2541;
+      --text-light: #edf2f4;
+      --text-muted: #a0aab2;
+      --font-title: 'Cinzel Decorative', serif;
+      --font-sub: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-deep);
+      color: var(--text-light);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+    }
+
+    body {
+      min-height: 100vh;
+      position: relative;
+      background: radial-gradient(circle at 50% 20%, #0c1838 0%, var(--bg-deep) 80%);
+    }
+
+    /* Background Canvas for Particles & Lanterns */
+    #canvas-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Red String of Fate Overlay SVG */
+    #fate-strings {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* Main Container */
+    .scroll-container {
+      position: relative;
+      z-index: 5;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 120px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ==========================================================================
+       2. TYPOGRAPHY & DECORATIVE SEPARATORS
+       ========================================================================== */
+    h1, h2, h3 {
+      font-family: var(--font-title);
+      text-align: center;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 1.15rem;
+      line-height: 1.8;
+      color: #d1d8e0;
+      font-weight: 300;
+    }
+
+    .chapter-tag {
+      font-family: var(--font-sub);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--jade-highlight);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      text-align: center;
+      display: block;
+    }
+
+    .chapter-title {
+      font-size: 2.4rem;
+      color: #ffffff;
+      text-shadow: 0 0 15px rgba(243, 156, 18, 0.3);
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 60px 0;
+      width: 100%;
+      opacity: 0.7;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      height: 1px;
+      width: 100px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    .divider-flower {
+      margin: 0 15px;
+      color: var(--gold-primary);
+      font-size: 1.2rem;
+    }
+
+    /* ==========================================================================
+       3. LIVE FLOATING GUIDE: VAISH (CSS ART & ANIMATION)
+       ========================================================================== */
+    .vaish-guide-wrapper {
+      position: relative;
+      z-index: 100;
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Hero state (centered, large) */
+    .vaish-guide-wrapper.hero-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 60px 0 40px 0;
+    }
+
+    /* Floating helper state (docked bottom-right) */
+    .vaish-guide-wrapper.docked-state {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      transform: scale(0.75);
+      z-index: 999;
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: flex-end;
+    }
+
+    .vaish-avatar {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      filter: drop-shadow(0 0 15px rgba(26, 188, 156, 0.6));
+      animation: floatFairy 4s ease-in-out infinite;
+      cursor: pointer;
+    }
+
+    @keyframes floatFairy {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
+    }
+
+    /* Lotus Wings */
+    .wing {
+      position: absolute;
+      top: 25px;
+      width: 50px;
+      height: 80px;
+      background: linear-gradient(135deg, rgba(26, 188, 156, 0.7), rgba(243, 156, 18, 0.3));
+      border-radius: 50% 50% 10% 80%;
+      border: 1px solid rgba(255,255,255,0.4);
+      backdrop-filter: blur(2px);
+      z-index: 1;
+    }
+
+    .wing.left {
+      left: 5px;
+      transform-origin: right center;
+      animation: flapLeft 2.5s ease-in-out infinite;
+    }
+
+    .wing.right {
+      right: 5px;
+      transform-origin: left center;
+      transform: scaleX(-1);
+      animation: flapRight 2.5s ease-in-out infinite;
+    }
+
+    @keyframes flapLeft {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(-15deg) scale(1.05); }
+    }
+
+    @keyframes flapRight {
+      0%, 100% { transform: scaleX(-1) rotate(0deg) scale(1); }
+      50% { transform: scaleX(-1) rotate(-15deg) scale(1.05); }
+    }
+
+    /* Core Sprite & Glowing Aura */
+    .vaish-core {
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #ffffff 10%, #ffd166 40%, #ef476f 100%);
+      border-radius: 50%;
+      z-index: 2;
+      box-shadow: 0 0 25px #ffd166, inset 0 0 10px #ffffff;
+    }
+
+    /* Hanfu Ribbon Silhouette */
+    .ribbon {
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      width: 20px;
+      height: 45px;
+      border: 2px solid var(--red-string);
+      border-radius: 50% 50% 0 0;
+      z-index: 0;
+      animation: ribbonSway 3s ease-in-out infinite alternate;
+    }
+
+    .ribbon.second {
+      left: 40px;
+      animation-delay: -1.5s;
+    }
+
+    @keyframes ribbonSway {
+      0% { transform: rotate(-10deg); }
+      100% { transform: rotate(20deg); }
+    }
+
+    /* Dialogue Speech Bubble */
+    .dialogue-bubble {
+      background: rgba(11, 19, 43, 0.9);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 0 20px rgba(243, 156, 18, 0.25);
+      border-radius: 18px;
+      padding: 16px 22px;
+      max-width: 380px;
+      margin-top: 15px;
+      position: relative;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+
+    .docked-state .dialogue-bubble {
+      margin-top: 0;
+      margin-right: 15px;
+      margin-bottom: 25px;
+      max-width: 280px;
+      font-size: 0.95rem;
+    }
+
+    .dialogue-text {
+      color: var(--text-light);
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       4. CHAPTER CARDS & SECTIONS
+       ========================================================================== */
+    .chapter-section {
+      width: 100%;
+      margin: 40px 0;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+
+    .chapter-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .parchment-card {
+      background: linear-gradient(145deg, rgba(28, 37, 65, 0.8), rgba(11, 19, 43, 0.9));
+      border: 1px solid rgba(243, 156, 18, 0.25);
+      border-radius: 16px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .parchment-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+    }
+
+    /* Ink Wash Seal Interactive Button */
+    .wax-seal-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 25px;
+      padding: 12px 28px;
+      background: radial-gradient(circle at center, #c0392b, #8e44ad);
+      color: #fff;
+      border: 1px solid var(--gold-primary);
+      border-radius: 50px;
+      font-family: var(--font-sub);
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .wax-seal-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(243, 156, 18, 0.6);
+      border-color: #ffffff;
+    }
+
+    .wax-seal-btn i {
+      margin-right: 8px;
+    }
+
+    /* Chapter 6 Signal Link */
+    .email-seal {
+      text-decoration: none;
+      background: radial-gradient(circle at center, #27ae60, #16a085);
+      box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);
+    }
+
+    /* ==========================================================================
+       5. POPUP MANUSCRIPT MODAL
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(5, 8, 20, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .manuscript-modal {
+      background: #131c38;
+      border: 2px solid var(--gold-primary);
+      border-radius: 12px;
+      max-width: 650px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 40px;
+      position: relative;
+      box-shadow: 0 0 50px rgba(243, 156, 18, 0.3);
+      transform: scale(0.8) rotateX(-10deg);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .manuscript-modal {
+      transform: scale(1) rotateX(0deg);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--gold-primary);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       6. RESPONSIVE DESIGN
+       ========================================================================== */
+    @media (max-width: 768px) {
+      .chapter-title { font-size: 1.8rem; }
+      .parchment-card { padding: 25px; }
+      .vaish-guide-wrapper.docked-state {
+        transform: scale(0.65);
+        bottom: 10px;
+        right: 10px;
+      }
+      .docked-state .dialogue-bubble { max-width: 200px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Interactive Elements -->
+  <canvas id="canvas-background"></canvas>
+  
+  <svg id="fate-strings">
+    <path id="string1" d="M 0 100 Q 300 300 600 100 T 1200 300" stroke="#e74c3c" stroke-width="1.5" fill="none"/>
+    <path id="string2" d="M 100 0 Q 400 600 800 200 T 1400 800" stroke="#e74c3c" stroke-width="1" fill="none"/>
+  </svg>
+
+  <!-- Live Floating Guide: Vaish -->
+  <div id="vaish-guide" class="vaish-guide-wrapper hero-state">
+    <div class="vaish-avatar" id="vaish-avatar" title="Click to summon Vaish's wisdom!">
+      <div class="wing left"></div>
+      <div class="wing right"></div>
+      <div class="vaish-core"></div>
+      <div class="ribbon"></div>
+      <div class="ribbon second"></div>
+    </div>
+    <div class="dialogue-bubble">
+      <div class="dialogue-text" id="typewriter-text"></div>
+    </div>
+  </div>
+
+  <!-- Scrollable Story Container -->
+  <main class="scroll-container">
+
+    <!-- HERO HEADER -->
+    <header style="text-align: center; margin-top: 20px; margin-bottom: 60px;">
+      <h1 style="font-size: 3rem; color: #ffffff; text-shadow: 0 0 20px rgba(255,255,255,0.4);">VAISHNAVI</h1>
+      <p style="font-family: var(--font-sub); font-size: 1.5rem; color: var(--gold-primary); font-style: italic; margin-top: 10px;">
+        Mechanical Tinkerer • Cinematic Storyteller • Visual Alchemist
+      </p>
+    </header>
+
+    <!-- CHAPTER 1: THE ORIGIN -->
+    <section class="chapter-section" id="chapter1" data-comment="First year Mech student here! Yes, I study gearboxes, but my heart runs on raw cinematics and tea ☕">
+      <span class="chapter-tag">Chapter I</span>
+      <h2 class="chapter-title">The Origin</h2>
+      <div class="parchment-card">
+        <p>
+          Welcome to my scroll! I'm a <strong>first-year Mechanical Engineering student at Lucknow University</strong>. While my weekdays are spent deciphering heavy thermodynamic equations, stress tensors, and machine kinematics, my soul thrives at the intersection of structural logic and pure aesthetic wizardry.
+        </p>
+        <button class="wax-seal-btn" onclick="openModal('origin')">
+          <span style="margin-right:8px;">🌸</span> Unfold Scroll Details
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-flower">☸</span></div>
+
+    <!-- CHAPTER 2: THE COSMIC VAULT -->
+    <section class="chapter-section" id="chapter2" data-comment="Space is huge! Whenever I look at the stars, I remember that floating code bugs are tiny compared to the galaxy 🌌">
+      <span class="chapter-tag">Chapter II</span>
+      <h2 class="chapter-title">The Cosmic Vault</h2>
+      <div class="parchment-card">
+        <p>
+          I have a deep, unyielding obsession with astronomy and deep-space exploration. The universe is the ultimate canvas—dark, infinite, and illuminated by drifting stellar lanterns. My technical creations constantly steal inspiration from orbital mechanics and starry horizons.
+        </p>
+        <button class="wax-seal-btn" onclick="openModal('cosmic')">
+          <span style="margin-right:8px;">✨</span> View Star Charts
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-flower">☸</span></div>
+
+    <!-- CHAPTER 3: THE DIRECTOR'S CUT -->
+    <section class="chapter-section" id="chapter3" data-comment="Color palettes are my playground! If a frame doesn't feel like a high-budget Xianxia drama, I don't want it 🎬">
+      <span class="chapter-tag">Chapter III</span>
+      <h2 class="chapter-title">The Director's Cut</h2>
+      <div class="parchment-card">
+        <p>
+          Storytelling isn't just written—it's color-graded. I spend countless hours playing with color theory in Canva and slicing frames inside <strong>DaVinci Resolve</strong> just for fun. Transforming raw video footage into atmospheric, emotional journeys is my favorite visual alchemy.
+        </p>
+        <button class="wax-seal-btn" onclick="openModal('director')">
+          <span style="margin-right:8px;">🎨</span> Peek at the Timeline
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-flower">☸</span></div>
+
+    <!-- CHAPTER 4: THE QUILL & ANCHOR -->
+    <section class="chapter-section" id="chapter4" data-comment="Give me a microphone or a quill, and I can command a whole hall! Public speaking gives me an instant adrenaline rush 🎤">
+      <span class="chapter-tag">Chapter IV</span>
+      <h2 class="chapter-title">The Quill & Anchor</h2>
+      <div class="parchment-card">
+        <p>
+          Long before writing code, I was weaving words. From getting my poetry published in school magazines to stepping onto stage lights as a student host and anchor, commanding large crowds with warmth and humor is second nature to me.
+        </p>
+        <button class="wax-seal-btn" onclick="openModal('quill')">
+          <span style="margin-right:8px;">📜</span> Read Manuscript Excerpt
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-flower">☸</span></div>
+
+    <!-- CHAPTER 5: THE CODE PAVILION -->
+    <section class="chapter-section" id="chapter5" data-comment="Code isn't just dry math to me—it's digital origami! Every function is a petal in motion 💻">
+      <span class="chapter-tag">Chapter V</span>
+      <h2 class="chapter-title">The Code Pavilion</h2>
+      <div class="parchment-card">
+        <p>
+          My entry into web technology was driven by one simple question: <em>"Why can't software feel like magic?"</em> Today, I engineer web architectures where front-end code mirrors fluid physics—combining HTML canvas particle fields, custom CSS animations, and expressive DOM scripting.
+        </p>
+        <button class="wax-seal-btn" onclick="openModal('code')">
+          <span style="margin-right:8px;">⚡</span> Inspect Architecture
+        </button>
+      </div>
+    </section>
+
+    <div class="divider"><span class="divider-flower">☸</span></div>
+
+    <!-- CHAPTER 6: THE SIGNAL TRANSMISSION -->
+    <section class="chapter-section" id="chapter6" data-comment="Ready to build something magical together? Transmit your signal into my inbox! 📮">
+      <span class="chapter-tag">Chapter VI</span>
+      <h2 class="chapter-title">The Signal Transmission</h2>
+      <div class="parchment-card" style="text-align: center;">
+        <p style="margin-bottom: 25px;">
+          The sky lanterns are floating into the distance, but our journey doesn't have to end here. Whether you want to discuss mechanical design, brainstorm a cinematic video, or collaborate on front-end visual alchemy, my signal receivers are always active!
+        </p>
+        <a href="mailto:vaishnavi.adhikari19@gmail.com" class="wax-seal-btn email-seal">
+          <span style="margin-right:8px;">💌</span> Dispatch Mail to Vaish
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Manuscript Modal Window -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="manuscript-modal" onclick="event.stopPropagation()">
+      <button class="close-modal" onclick="closeModal(force=true)">&times;</button>
+      <h3 id="modal-title" style="color: var(--gold-primary); margin-bottom: 15px; font-size: 1.8rem;"></h3>
+      <div id="modal-body" style="line-height: 1.8; color: #d1d8e0;"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript Behavior Engine -->
+  <script>
+    /* ==========================================================================
+       1. TYPEWRITER & FLOATING GUIDE ENGINE
+       ========================================================================== */
+    const heroText = "Welcome to my digital scroll! Let's go on a whimsical journey through my universe ✨";
+    const typewriterElement = document.getElementById('typewriter-text');
+    let typeIndex = 0;
+
+    function typeWriter() {
+      if (typeIndex < heroText.length) {
+        typewriterElement.innerHTML += heroText.charAt(typeIndex);
+        typeIndex++;
+        setTimeout(typeWriter, 40);
+      }
+    }
+
+    // Start typewriter on window load
+    window.addEventListener('load', typeWriter);
+
+    // Guide dock transformation on scroll
+    const guide = document.getElementById('vaish-guide');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 150) {
+        if (!guide.classList.contains('docked-state')) {
+          guide.classList.remove('hero-state');
+          guide.classList.add('docked-state');
+        }
+      } else {
+        if (!guide.classList.contains('hero-state')) {
+          guide.classList.remove('docked-state');
+          guide.classList.add('hero-state');
+        }
+      }
+    });
+
+    // Intersection Observer to trigger Vaish comments & Section visibility
+    const chapters = document.querySelectorAll('.chapter-section');
+    const observerOptions = { threshold: 0.5 };
+
+    const chapterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const customComment = entry.target.getAttribute('data-comment');
+          if (guide.classList.contains('docked-state') && customComment) {
+            typewriterElement.innerHTML = customComment;
+          }
+        }
+      });
+    }, observerOptions);
+
+    chapters.forEach(chapter => chapterObserver.observe(chapter));
+
+    // Interactive avatar click response
+    document.getElementById('vaish-avatar').addEventListener('click', () => {
+      const easterEggs = [
+        "Did you know? Lotus wings are powered by pure imagination and tea!",
+        "Floating sky lanterns carry wishes up to the stars 🏮",
+        "Keep scrolling! Chapter VI has my direct contact transmission link!"
+      ];
+      const randomMsg = easterEggs[Math.floor(Math.random() * easterEggs.length)];
+      typewriterElement.innerHTML = randomMsg;
+    });
+
+    /* ==========================================================================
+       2. CANVAS ENGINE: DRIFTING LANTERNS & FIREFLIES
+       ========================================================================== */
+    const canvas = document.getElementById('canvas-background');
+    const ctx = canvas.getContext('2d');
+
+    let width, height;
+    function resizeCanvas() {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Lantern {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + Math.random() * 100;
+        this.speedY = 0.3 + Math.random() * 0.7;
+        this.speedX = Math.sin(Math.random() * Math.PI) * 0.3;
+        this.size = 12 + Math.random() * 16;
+        this.opacity = 0.4 + Math.random() * 0.5;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += Math.sin(this.y * 0.01) * 0.4;
+        if (this.y < -50) this.reset();
+      }
+      draw() {
+        ctx.save();
+        ctx.fillStyle = `rgba(243, 156, 18, ${this.opacity})`;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = "rgba(241, 196, 15, 0.8)";
+        // Draw lantern capsule shape
+        ctx.beginPath();
+        ctx.roundRect(this.x, this.y, this.size, this.size * 1.3, 4);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class Firefly {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = 1 + Math.random() * 2.5;
+        this.alpha = Math.random();
+        this.speedAlpha = 0.01 + Math.random() * 0.02;
+      }
+      update() {
+        this.alpha += this.speedAlpha;
+        if (this.alpha > 1 || this.alpha < 0) this.speedAlpha = -this.speedAlpha;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(26, 188, 156, ${Math.max(0, this.alpha)})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = "#1abc9c";
+        ctx.fill();
+      }
+    }
+
+    const lanterns = Array.from({ length: 25 }, () => new Lantern());
+    const fireflies = Array.from({ length: 60 }, () => new Firefly());
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      lanterns.forEach(l => { l.update(); l.draw(); });
+      fireflies.forEach(f => { f.update(); f.draw(); });
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    /* ==========================================================================
+       3. MODAL POPUP DATA & HANDLERS
+       ========================================================================== */
+    const modalData = {
+      origin: {
+        title: "Chapter I: The Mechanical Origin",
+        body: "<p>Engineering at Lucknow University gives me a deep respect for how complex structures fit together. Whether calculating bending moments or sculpting keyframe CSS animations, the underlying spirit is identical: turning raw principles into dynamic harmony.</p>"
+      },
+      cosmic: {
+        title: "Chapter II: Stellar Observations",
+        body: "<p>Astronomy teaches us scale and elegance. I love embedding cosmic themes into software through smooth ambient lighting, glowing particle physics, and deep midnight gradient themes.</p>"
+      },
+      director: {
+        title: "Chapter III: Cinematic Color & Editing",
+        body: "<p>Video editing in DaVinci Resolve taught me the power of visual rhythm—cuts, color tones, and pacing. I bring that exact cinematographic eye directly to front-end UI animations!</p>"
+      },
+      quill: {
+        title: "Chapter IV: Words & Stage Presence",
+        body: "<p>Writing poetry and anchoring live crowds unlocked my ability to communicate complex concepts with casual humor, warmth, and engaging clarity.</p>"
+      },
+      code: {
+        title: "Chapter V: Creative Technology",
+        body: "<p>My web stack combines HTML5 Canvas, modern CSS grid architecture, and pure JavaScript state machines to create immersive digital experiences that linger in the memory.</p>"
+      }
+    };
+
+    function openModal(key) {
+      const data = modalData[key];
+      if (!data) return;
+      document.getElementById('modal-title').innerText = data.title;
+      document.getElementById('modal-body').innerHTML = data.body;
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+
+    function closeModal(force = false) {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
