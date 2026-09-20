@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vaishnavi Adhikari — The Celestial Strategist</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.1/tailwind.min.js"></script>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          void: "#050814",
+          dusk: "#0B132B",
+          slate: "#131C31",
+          mist: "#8A9BB5",
+          cyan: {
+            glow: "#48CAE4",
+            soft: "#8FE3F0",
+          },
+          jade: {
+            DEFAULT: "#0E6E55",
+            bright: "#1F9C79",
+            deep: "#083D30",
+          },
+          gilt: "#C9A24B",
+        },
+        fontFamily: {
+          display: ["Cinzel", "serif"],
+          body: ["Jost", "sans-serif"],
+        },
+        letterSpacing: {
+          widest2: "0.28em",
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    background-color: #050814;
+    font-family: "Jost", sans-serif;
+    color: #DCE4F0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: "Cinzel", serif;
+  }
+
+  /* ---------- Ambient backdrop: nebula wash + starlight + film grain ---------- */
+
+  .cosmos-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(72, 202, 228, 0.10), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 100% 10%, rgba(14, 110, 85, 0.16), transparent 55%),
+      radial-gradient(ellipse 90% 70% at 50% 120%, rgba(11, 19, 43, 0.9), transparent 60%),
+      linear-gradient(180deg, #050814 0%, #0B132B 45%, #070B18 100%);
+  }
+
+  .stars-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #EAF6FB;
+    box-shadow: 0 0 6px 1px rgba(143, 227, 240, 0.6);
+    animation: twinkle 5s ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .lantern {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201, 162, 75, 0.55), rgba(201, 162, 75, 0) 70%);
+    filter: blur(1px);
+    animation: drift 22s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes drift {
+    0%   { transform: translateY(0) translateX(0); opacity: 0.35; }
+    50%  { transform: translateY(-60px) translateX(24px); opacity: 0.8; }
+    100% { transform: translateY(0) translateX(0); opacity: 0.35; }
+  }
+
+  /* film grain overlay */
+  .grain-overlay {
+    position: fixed;
+    inset: -100px;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain-shift 1.4s steps(3) infinite;
+  }
+
+  @keyframes grain-shift {
+    0%   { transform: translate(0, 0); }
+    33%  { transform: translate(-3%, 2%); }
+    66%  { transform: translate(2%, -3%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .star, .lantern, .grain-overlay, .reveal, .skillbar-fill {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* ---------- Glass navbar ---------- */
+
+  .glass-nav {
+    background: rgba(5, 8, 20, 0.55);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border-bottom: 1px solid rgba(72, 202, 228, 0.12);
+  }
+
+  .nav-link {
+    position: relative;
+    color: #B9C6DC;
+    transition: color 0.3s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 1px;
+    width: 0%;
+    background: linear-gradient(90deg, #48CAE4, #1F9C79);
+    transition: width 0.35s ease;
+  }
+  .nav-link:hover {
+    color: #EAF6FB;
+  }
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* ---------- Buttons ---------- */
+
+  .btn-primary {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.95rem 2.1rem;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #06141F;
+    background: linear-gradient(120deg, #8FE3F0, #48CAE4 55%, #1F9C79);
+    border-radius: 2px;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    box-shadow: 0 0 0px rgba(72, 202, 228, 0.0);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 28px rgba(72, 202, 228, 0.55);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    color: #DCE4F0;
+    border: 1px solid rgba(201, 162, 75, 0.45);
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+  .btn-ghost:hover {
+    border-color: #C9A24B;
+    background: rgba(201, 162, 75, 0.08);
+  }
+
+  /* ---------- Reveal on scroll ---------- */
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Hero title flourish ---------- */
+
+  .hero-kicker {
+    letter-spacing: 0.4em;
+  }
+
+  .hero-title {
+    line-height: 1.05;
+    text-shadow: 0 0 40px rgba(72, 202, 228, 0.25);
+  }
+
+  .seal-ring {
+    border: 1px solid rgba(201, 162, 75, 0.5);
+  }
+  .seal-ring::before {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border: 1px solid rgba(72, 202, 228, 0.25);
+    border-radius: 9999px;
+  }
+
+  /* ---------- Skill bars ---------- */
+
+  .skillbar-track {
+    height: 6px;
+    background: rgba(138, 155, 181, 0.18);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .skillbar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #48CAE4, #1F9C79);
+    transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* ---------- Codex stat card ---------- */
+
+  .codex-card {
+    background: linear-gradient(180deg, rgba(19, 28, 49, 0.75), rgba(11, 19, 43, 0.55));
+    border: 1px solid rgba(138, 155, 181, 0.14);
+    backdrop-filter: blur(6px);
+  }
+
+  /* ---------- Scroll Vault cards ---------- */
+
+  .scroll-card {
+    position: relative;
+    background: linear-gradient(160deg, rgba(19, 28, 49, 0.85), rgba(8, 13, 27, 0.85));
+    border: 1px solid rgba(138, 155, 181, 0.14);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+    overflow: hidden;
+  }
+  .scroll-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 0%, var(--glow-color, rgba(72,202,228,0.25)), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  .scroll-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(72, 202, 228, 0.35);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.6);
+  }
+  .scroll-card:hover::before {
+    opacity: 1;
+  }
+  .scroll-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- Contact deck ---------- */
+
+  .transmission-deck {
+    background: linear-gradient(180deg, rgba(19, 28, 49, 0.85), rgba(5, 8, 20, 0.9));
+    border: 1px solid rgba(72, 202, 228, 0.18);
+  }
+
+  .field-input {
+    background: rgba(5, 8, 20, 0.6);
+    border: 1px solid rgba(138, 155, 181, 0.25);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .field-input:focus {
+    outline: none;
+    border-color: #48CAE4;
+    box-shadow: 0 0 0 3px rgba(72, 202, 228, 0.15);
+  }
+
+  ::selection {
+    background: rgba(72, 202, 228, 0.35);
+    color: #F4FBFD;
+  }
+
+  /* focus visibility for accessibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid #48CAE4;
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #050814; }
+  ::-webkit-scrollbar-thumb { background: #17324a; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #1F9C79; }
+</style>
+</head>
+
+<body class="antialiased">
+
+<div class="cosmos-backdrop"></div>
+<div class="stars-layer" id="starsLayer"></div>
+<div class="grain-overlay"></div>
+
+<!-- ================= NAVBAR ================= -->
+<header class="fixed top-0 inset-x-0 z-50 glass-nav">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+    <a href="#top" class="font-display text-lg sm:text-xl tracking-widest2 text-cyan-soft flex items-center gap-2">
+      <i class="fa-solid fa-meteor text-jade-bright"></i>
+      V.A.
+    </a>
+
+    <div class="hidden md:flex items-center gap-10 font-body text-sm tracking-wide">
+      <a href="#codex" class="nav-link">The Codex</a>
+      <a href="#vault" class="nav-link">The Scroll Vault</a>
+      <a href="#signal" class="nav-link">Signal Center</a>
+    </div>
+
+    <a href="#signal" class="hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 border border-jade-bright/50 text-cyan-soft hover:bg-jade-bright/10 hover:border-jade-bright transition-colors">
+      <i class="fa-solid fa-satellite-dish"></i> Open a Channel
+    </a>
+
+    <button id="menuBtn" aria-label="Open menu" aria-expanded="false" class="md:hidden text-cyan-soft text-2xl">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="md:hidden hidden flex-col gap-1 px-5 pb-6 font-body text-sm">
+    <a href="#codex" class="block py-3 border-b border-white/5 text-mist">The Codex</a>
+    <a href="#vault" class="block py-3 border-b border-white/5 text-mist">The Scroll Vault</a>
+    <a href="#signal" class="block py-3 text-mist">Signal Center</a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="top" class="relative min-h-screen flex items-center pt-28 pb-20 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-[1.4fr_1fr] gap-16 items-center">
+
+    <div class="reveal" data-reveal>
+      <p class="hero-kicker text-xs sm:text-sm text-gilt font-body mb-6">A PORTFOLIO IN THE FORM OF A DYNASTY RECORD</p>
+
+      <h1 class="hero-title font-display font-semibold text-4xl sm:text-5xl md:text-6xl xl:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-soft via-white to-jade-bright">
+        VAISHNAVI ADHIKARI
+      </h1>
+      <h2 class="font-display text-lg sm:text-2xl md:text-3xl mt-4 text-mist tracking-widest2">
+        THE CELESTIAL STRATEGIST
+      </h2>
+
+      <p class="mt-8 max-w-xl text-base sm:text-lg text-mist/90 leading-relaxed font-body">
+        Part engineer, part storyteller — I chart orbits and story arcs with the same
+        quiet obsession. If you love clean systems and cinematic light in equal measure,
+        you have found the right pavilion.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#vault" class="btn-primary">
+          <i class="fa-solid fa-compass"></i> Explore My Cosmos
+        </a>
+        <a href="#codex" class="btn-ghost">
+          <i class="fa-solid fa-scroll"></i> Read the Codex
+        </a>
+      </div>
+    </div>
+
+    <!-- seal / emblem -->
+    <div class="reveal hidden lg:flex justify-center" data-reveal style="transition-delay: 0.15s;">
+      <div class="relative w-72 h-72 xl:w-80 xl:h-80 rounded-full seal-ring flex items-center justify-center">
+        <div class="lantern w-40 h-40" style="top: -10%; left: 55%;"></div>
+        <div class="w-56 h-56 xl:w-64 xl:h-64 rounded-full border border-cyan-glow/30 flex items-center justify-center">
+          <div class="text-center">
+            <i class="fa-solid fa-yin-yang text-5xl text-cyan-soft/80 mb-4 block"></i>
+            <p class="font-display text-xs tracking-widest2 text-gilt">SCHOLAR</p>
+            <p class="font-display text-xs tracking-widest2 text-jade-bright">STRATEGIST</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="#codex" aria-label="Scroll to next section" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-cyan-soft/70 animate-bounce">
+    <i class="fa-solid fa-chevron-down"></i>
+  </a>
+</section>
+
+<!-- ================= THE CHARACTER CODEX (ABOUT) ================= -->
+<section id="codex" class="relative py-28 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs tracking-widest2 text-jade-bright font-body mb-3">CHAPTER ONE</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-white mb-8">The Character Codex</h2>
+      <p class="text-lg text-mist leading-relaxed font-body">
+        Hey there! I am a first-year mechanical engineering student fueled by the intersections of
+        structural design, stellar deep-space mysteries, and digital aesthetics. Operating from
+        Lucknow University, I love combining raw mathematical logic with the fluid pacing of film
+        editing and written words. Welcome to my little corner of the digital cosmos!
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <div class="reveal codex-card p-8" data-reveal style="transition-delay: 0.05s;">
+        <i class="fa-solid fa-rocket text-2xl text-cyan-glow mb-5 block"></i>
+        <h3 class="font-display text-sm tracking-widest2 text-white mb-2">SPACE SYSTEMS</h3>
+        <p class="text-sm text-mist mb-5 leading-relaxed">
+          Fascinated by orbital mechanics, mission logic, and the hardware that lets us reach
+          past the atmosphere.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="78"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-body" data-percent>78%</p>
+      </div>
+
+      <div class="reveal codex-card p-8" data-reveal style="transition-delay: 0.15s;">
+        <i class="fa-solid fa-film text-2xl text-jade-bright mb-5 block"></i>
+        <h3 class="font-display text-sm tracking-widest2 text-white mb-2">CINEMA POST-PRODUCTION</h3>
+        <p class="text-sm text-mist mb-5 leading-relaxed">
+          Editing in DaVinci Resolve to shape color, rhythm, and mood the way a script shapes
+          a scene.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="85"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-body" data-percent>85%</p>
+      </div>
+
+      <div class="reveal codex-card p-8" data-reveal style="transition-delay: 0.25s;">
+        <i class="fa-solid fa-feather-pointed text-2xl text-gilt mb-5 block"></i>
+        <h3 class="font-display text-sm tracking-widest2 text-white mb-2">LITERARY DECLAMATIONS</h3>
+        <p class="text-sm text-mist mb-5 leading-relaxed">
+          Poetry and public speaking, because a well-placed word can carry as much force as
+          a well-placed equation.
+        </p>
+        <div class="skillbar-track"><div class="skillbar-fill" data-target="90"></div></div>
+        <p class="text-right text-xs text-mist mt-2 font-body" data-percent>90%</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE SCROLL VAULT ================= -->
+<section id="vault" class="relative py-28 px-5 sm:px-8">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="reveal mb-16 max-w-3xl" data-reveal>
+      <p class="text-xs tracking-widest2 text-jade-bright font-body mb-3">CHAPTER TWO</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-white mb-6">The Scroll Vault</h2>
+      <p class="text-lg text-mist leading-relaxed font-body">
+        Three domains, unrolled like imperial scrolls. Each holds a different half of how I
+        think — pick one up.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <article class="reveal scroll-card p-9 rounded-sm" data-reveal style="--glow-color: rgba(72,202,228,0.28); transition-delay:0.05s;">
+        <div class="w-12 h-12 rounded-full border border-cyan-glow/40 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-satellite text-cyan-glow"></i>
+        </div>
+        <h3 class="font-display text-xl text-white mb-4 tracking-wide">Hardware &amp; Cosmos</h3>
+        <p class="text-sm text-mist leading-relaxed">
+          Where circuits meet celestial mechanics. I tinker with automated hardware logic the
+          same way I trace planetary orbits — patiently, and with the conviction that every
+          system, however vast, obeys a rule worth finding. This is the workshop where a
+          gear and a galaxy are studied with the same reverence.
+        </p>
+      </article>
+
+      <article class="reveal scroll-card p-9 rounded-sm" data-reveal style="--glow-color: rgba(31,156,121,0.32); transition-delay:0.15s;">
+        <div class="w-12 h-12 rounded-full border border-jade-bright/40 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-clapperboard text-jade-bright"></i>
+        </div>
+        <h3 class="font-display text-xl text-white mb-4 tracking-wide">Film &amp; Frame</h3>
+        <p class="text-sm text-mist leading-relaxed">
+          Costume dramas taught me that a single frame can hold a whole dynasty's worth of
+          longing. In DaVinci Resolve, I chase that same weight — grading color like ink on
+          silk, cutting for breath and pause, building worlds one timeline at a time.
+        </p>
+      </article>
+
+      <article class="reveal scroll-card p-9 rounded-sm" data-reveal style="--glow-color: rgba(201,162,75,0.3); transition-delay:0.25s;">
+        <div class="w-12 h-12 rounded-full border border-gilt/50 flex items-center justify-center mb-6">
+          <i class="fa-solid fa-scroll text-gilt"></i>
+        </div>
+        <h3 class="font-display text-xl text-white mb-4 tracking-wide">Script &amp; Stage</h3>
+        <p class="text-sm text-mist leading-relaxed">
+          Poetry drafted in the margins of lecture notes, speeches rehearsed to an empty room —
+          this is where I practice saying things so they land. Every strategist needs a voice,
+          and mine was built one verse, one podium, at a time.
+        </p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= SIGNAL TRANSMISSION CENTER (CONTACT) ================= -->
+<section id="signal" class="relative py-28 px-5 sm:px-8">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="reveal text-center mb-14" data-reveal>
+      <p class="text-xs tracking-widest2 text-jade-bright font-body mb-3">CHAPTER THREE</p>
+      <h2 class="font-display text-3xl sm:text-4xl md:text-5xl text-white mb-6">Signal Transmission Center</h2>
+      <p class="text-lg text-mist leading-relaxed font-body">
+        Send a message across the void — I read every transmission that reaches this pavilion,
+        and I answer them all.
+      </p>
+    </div>
+
+    <form class="reveal transmission-deck p-8 sm:p-12 rounded-sm" data-reveal id="signalForm">
+      <div class="grid sm:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label for="name" class="block text-xs tracking-widest2 text-mist mb-2">YOUR NAME</label>
+          <input id="name" name="name" type="text" required placeholder="Who goes there?"
+                 class="field-input w-full px-4 py-3 text-sm text-white rounded-sm placeholder:text-mist/50" />
+        </div>
+        <div>
+          <label for="email" class="block text-xs tracking-widest2 text-mist mb-2">YOUR EMAIL</label>
+          <input id="email" name="email" type="email" required placeholder="you@somewhere.cosmos"
+                 class="field-input w-full px-4 py-3 text-sm text-white rounded-sm placeholder:text-mist/50" />
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <label for="message" class="block text-xs tracking-widest2 text-mist mb-2">YOUR MESSAGE</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell me why you're reaching out..."
+                  class="field-input w-full px-4 py-3 text-sm text-white rounded-sm placeholder:text-mist/50 resize-none"></textarea>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <p class="text-xs text-mist/70 order-2 sm:order-1">This opens your email app, addressed and ready to send.</p>
+        <button type="submit" class="btn-primary order-1 sm:order-2 w-full sm:w-auto justify-center">
+          <i class="fa-solid fa-paper-plane"></i> Send Transmission
+        </button>
+      </div>
+    </form>
+
+    <div class="reveal flex justify-center gap-8 mt-12 text-xl text-mist" data-reveal>
+      <a href="#" aria-label="Instagram" class="hover:text-cyan-glow transition-colors"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" aria-label="LinkedIn" class="hover:text-cyan-glow transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" aria-label="YouTube" class="hover:text-cyan-glow transition-colors"><i class="fa-brands fa-youtube"></i></a>
+      <a href="#" aria-label="GitHub" class="hover:text-cyan-glow transition-colors"><i class="fa-brands fa-github"></i></a>
+    </div>
+  </div>
+</section>
+
+<footer class="relative py-10 px-5 sm:px-8 border-t border-white/5">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-mist/60 font-body">
+    <p>&copy; 2026 Vaishnavi Adhikari. Charted from Lucknow, under one sky.</p>
+    <p class="tracking-widest2">THE CELESTIAL STRATEGIST</p>
+  </div>
+</footer>
+
+<script>
+  // ---------- Starfield generation ----------
+  const starsLayer = document.getElementById('starsLayer');
+  const STAR_COUNT = window.innerWidth < 640 ? 60 : 130;
+  for (let i = 0; i < STAR_COUNT; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.6;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (3 + Math.random() * 4) + 's';
+    starsLayer.appendChild(s);
+  }
+  // a few drifting lantern glows for atmosphere
+  for (let i = 0; i < 4; i++) {
+    const l = document.createElement('div');
+    l.className = 'lantern';
+    const size = 120 + Math.random() * 100;
+    l.style.width = size + 'px';
+    l.style.height = size + 'px';
+    l.style.top = Math.random() * 90 + '%';
+    l.style.left = Math.random() * 90 + '%';
+    l.style.animationDuration = (16 + Math.random() * 10) + 's';
+    l.style.animationDelay = (Math.random() * 6) + 's';
+    starsLayer.appendChild(l);
+  }
+
+  // ---------- Mobile menu ----------
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('flex');
+    mobileMenu.classList.toggle('hidden');
+    menuBtn.setAttribute('aria-expanded', String(isOpen));
+    menuBtn.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mobileMenu.classList.add('hidden');
+    mobileMenu.classList.remove('flex');
+    menuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // ---------- Reveal on scroll ----------
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ---------- Skill bars ----------
+  const bars = document.querySelectorAll('.skillbar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target.getAttribute('data-target');
+        entry.target.style.width = target + '%';
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  bars.forEach(b => barObserver.observe(b));
+
+  // ---------- Contact form -> mailto ----------
+  const form = document.getElementById('signalForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const subject = encodeURIComponent('A transmission from ' + name);
+    const body = encodeURIComponent(message + '\n\n— ' + name + ' (' + email + ')');
+    window.location.href = `mailto:vaishnavi.adhikari19@gmail.com?subject=${subject}&body=${body}`;
+  });
+</script>
+
+</body>
+</html>
